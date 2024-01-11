@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@font-face {
+  font-family: iranYekan;
+  src: url("../fonts/iranyekanwebregular(fanum).woff") format("opentype");
+}
+
+
+*{
+  font-family: iranYekan !important;
+}
+.mapboxgl-map {
+  height: 100vh !important;
+}
+body {
+ 
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+
+
