@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
         <ThemeProvider attribute="class">
         {children}
           <BottomNavigation />
-          {/* <FloatingSideBar /> */}
-          <FloatingButton />
+          <FloatingSideBar />
+          {/* <FloatingButton /> */}
          
         </ThemeProvider>
       </body>

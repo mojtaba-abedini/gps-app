@@ -1,9 +1,9 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
-
+import BottomPlayer from "./bottomPlayer";
 import "./mapStyle.css";
 
 
@@ -13,15 +13,17 @@ const MyMap = () => {
   const [pointData,setPointData]=useState([])
   const [dataOne,setDataOne]=useState({})
   const polyline = []
+  const [play,setPlay]=useState(false)
+  const [index,setIndex]=useState(0)
+  const [speed,setSpeed]= useState(200)
+  let timer;
 
   useEffect(()=>{
 
     if (pointData.length === 0) LoadData()
-    if (pointData.length !== 0) setPosition([(pointData[0].DataLongitude)/10000000,(pointData[0].DataLatitude)/10000000])
+    if (pointData.length !== 0 && position.length === 0) setPosition([(pointData[0].DataLongitude)/10000000,(pointData[0].DataLatitude)/10000000])
   
-    if (pointData.length !== 0) pointData.map(item => {
-      polyline.push([(item.DataLongitude)/10000000,(item.DataLatitude)/10000000])
-    })
+    if (pointData.length !== 0 && polyline.length===0) getPolyline()
 
     if (polyline.length !== 0) setDataOne({
               type: "Feature",
@@ -32,12 +34,32 @@ const MyMap = () => {
               },
     })
 
-    if(polyline.length !== 0) Animate()
 
-  },[pointData])
-
+  
 
 
+    if(play === true) {
+
+       timer = setInterval(()=>{
+        if (index < (polyline.length) )setIndex(prevIndex => prevIndex +1 )
+        setPosition(polyline[index]);
+
+      },speed);
+
+      return ()=>  clearInterval(timer);}
+    
+
+  },[pointData,play,position,index])
+
+
+
+  function  getPolyline(){
+    
+    pointData.map(item => {
+      polyline.push([(item.DataLongitude)/10000000,(item.DataLatitude)/10000000])
+    })
+
+  }
 
 
   function LoadData() {
@@ -65,24 +87,49 @@ const MyMap = () => {
   }
 
   
-
-  var speed = 300; 
-  function Animate() {
-    polyline.forEach(function (el, index) {
-      setTimeout(function () {
-        setPosition(el);
-      }, index * speed);
-    });
+  function clickBackward(){
+ 
+    getPolyline()
+    if (index !== 0){
+      setIndex(index-1)
+      setPosition(polyline[index])
+     
+      
+    }
+  }
+  function clickForward(){
+    getPolyline()
+    if (index < (polyline.length)-1){
+      setIndex(index +1)
+      setPosition(polyline[index])
+       
+  }
   }
 
 
+  const clickRefresh=()=>{
+    getPolyline()
+    setIndex(0)
+
+    setPosition(polyline[index])
+  }
+ 
+  const clickPause=()=>{
+
+    setPlay(false)
+    clearTimeout(timer)
+  }
+  const clickPlay=()=>{
+
+    setPlay(true)
+  }
 
   return (
    (position.length !== 0 ) ? <>
    
    
    
-   
+   <BottomPlayer clickPlay={play} onClickPause={()=>clickPause()} onClickPlay={()=>clickPlay()}  onClickBackward={()=>clickBackward()}  onClickForward={()=>clickForward()}  onClickRefresh={()=>{clickRefresh()}}/>
    <Map
       mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
       initialViewState={{
