@@ -3,13 +3,11 @@
 import dynamic from "next/dynamic";
 
 
-const MapWithNoSSR = dynamic(() => import("../components/map"), {
+const MapWithNoSSR = dynamic(() => import("../components/main-map"), {
   ssr: false,
 });
 
 export default function Home() {
-
-
 
 
   return (

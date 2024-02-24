@@ -2,6 +2,7 @@
 module.exports = {
   darkMode: 'class',
   content: [
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,6 +11,7 @@ module.exports = {
 
     fontSize: {
       sm: '0.65rem',
+      md: '0.80rem',
       base: '1rem',
       xl: '1.25rem',
       '2xl': '1.563rem',

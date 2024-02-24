@@ -25,7 +25,7 @@ const BottomNavigation = () => {
     return (
        <> <div class="w-full" style={{zIndex:10}}>
             {/* <section id="bottom-navigation" class="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> */}
-            <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+            <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200  dark:bg-[#1e293b] dark:border-gray-600">
                 <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
                     <button  onClick={()=>{router.push('/', { scroll: false });setActive(1)}} type="button" class={active === 1 ? buttonActive : buttonNoActive}>
                     <svg class={active === 1 ? svgActive : svgNoActive} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -57,7 +57,7 @@ const BottomNavigation = () => {
 
 
      
-//         {/* <div class="fixed bottom-0 left-0 z-50 grid w-full h-16 grid-cols-1 px-8 bg-white border-t border-gray-200 md:grid-cols-3 dark:bg-gray-700 dark:border-gray-600">
+        {/* <div class="fixed bottom-0 left-0 z-50 grid w-full h-16 grid-cols-1 px-8 bg-white border-t border-gray-200 md:grid-cols-3 dark:bg-gray-700 dark:border-gray-600">
 //         <div class="items-center justify-center hidden text-gray-500 dark:text-gray-400 me-auto md:flex">
 //             <svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 //                 <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
