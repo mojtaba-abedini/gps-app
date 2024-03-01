@@ -5,6 +5,7 @@ import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import "./mapStyle.css";
+
 import Lottie from "lottie-react";
 import {Card, CardBody} from "@nextui-org/react";
 import ArrowAnimation from '../images/arrow.json'

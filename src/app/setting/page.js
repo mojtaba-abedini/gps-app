@@ -3,10 +3,9 @@
 
 import '../globals.css'
 import { useTheme } from "next-themes";
-import {Switch} from "@nextui-org/react";
+
 import Link from "next/link";
-import {MoonIcon} from "../../components/icons";
-import {SunIcon} from "../../components/icons";
+
 import { useState } from "react";
 const Setting =()=>{
     const { theme, setTheme } = useTheme();

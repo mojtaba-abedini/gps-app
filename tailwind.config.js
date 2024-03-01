@@ -1,13 +1,18 @@
 /** @type {import('tailwindcss').Config} */
+
+const {nextui} = require("@nextui-org/react");
+
 module.exports = {
   darkMode: 'class',
   content: [
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+   
 
     fontSize: {
       sm: '0.65rem',
@@ -29,5 +34,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [nextui()]
 }

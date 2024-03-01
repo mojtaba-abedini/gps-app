@@ -17,16 +17,9 @@
 .mapboxgl-map {
   height: 100vh !important;
 }
-body {
- 
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+.right-3 {
+  right: unset;
+  left: 0.75rem;
 }
-
-
 
