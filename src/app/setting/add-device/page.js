@@ -17,7 +17,7 @@ const AddDevice = ()=>{
 
     return (
         <div className="flex lg:h-screen items-center justify-center">
-        <div className="grid grid-cols-1 gap-3 w-full md:w-1/4 px-5 mt-5 mb-20 z-50">
+         <div className="grid grid-cols-1 gap-3 w-full md:w-1/4 px-5 mt-5 mb-20 z-50">
      
                 <Select 
                    classNames="select"
