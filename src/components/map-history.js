@@ -29,9 +29,7 @@ const MapHistory = () => {
 
     if (pointData.length === 0) LoadData()
     if (pointData.length !== 0 && position.length === 0) setPosition([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000])
-
     if (pointData.length !== 0 && polyline.length === 0) getPolyline()
-
     if (polyline.length !== 0) setDataOne({
       type: "Feature",
       properties: {},
@@ -42,11 +40,13 @@ const MapHistory = () => {
     })
 
 
-    if (play === true) {
+    if (play) {
 
       timer = setInterval(() => {
-        if (index < (polyline.length)) setIndex(prevIndex => prevIndex + 1)
-        setPosition(polyline[index]);
+        if (index < (polyline.length)) {
+          setIndex(prevIndex => prevIndex + 1)
+          setPosition(polyline[index]);
+        } else setPlay(false)
 
       }, speed);
 
@@ -68,8 +68,6 @@ const MapHistory = () => {
 
 
   function LoadData() {
-
-    console.log("called");
 
     var data = JSON.stringify({
       DeviceId: 1,
@@ -99,23 +97,22 @@ const MapHistory = () => {
 
     getPolyline()
     if (index !== 0) {
+
       setIndex(index - 1)
-      setPosition(polyline[index])
-
-
+      if (polyline[index] != undefined) setPosition(polyline[index])
     }
   }
   function clickForward() {
     getPolyline()
     if (index < (polyline.length) - 1) {
       setIndex(index + 1)
-      setPosition(polyline[index])
-
+      if (polyline[index] != undefined) setPosition(polyline[index])
     }
   }
 
 
-  function filterDate(){
+  function filterDate() {
+
     setPointData([])
     setPosition([])
     setDataOne([])
@@ -129,12 +126,10 @@ const MapHistory = () => {
   }
 
   const clickPause = () => {
-
     setPlay(false)
     clearTimeout(timer)
   }
   const clickPlay = () => {
-
     setPlay(true)
   }
 
@@ -145,14 +140,14 @@ const MapHistory = () => {
         <div className="w-full flex items-center justify-center p-3">
           <div className="grid grid-cols-3 gap-2">
             <DatePicker
-            className=" rounded-xl py-1 px-3 w-full"
+              className=" rounded-xl py-1 px-3 w-full"
               isGregorian={true}
               timePicker={false}
               value={filters.from}
               onChange={(value) => setfilters({ ...filters, from: value })}
             />
             <DatePicker
-                className=" rounded-xl py-1 px-3  w-full"
+              className=" rounded-xl py-1 px-3  w-full"
               isGregorian={true}
               timePicker={false}
               value={filters.to}
@@ -168,38 +163,38 @@ const MapHistory = () => {
 
 
       <BottomPlayer clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
-    
-   <Map
-      mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
-      initialViewState={{
-        longitude: position[0],
-        latitude: position[1],
-        zoom: 14,
-        pitch: 40,
-      }}
-      mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
-    >
-    <Source id="polylineLayer" type="geojson" data={dataOne}>
-        <Layer
-          id="lineLayer"
-          type="line"
-          source="my-data"
-          layout={{
-            "line-join": "round",
-            "line-cap": "round",
-          }}
-          paint={{
-            "line-color": "rgba(3, 170, 238, 0.5)",
-            "line-width": 5,
-          }}
-        />
-      </Source>
-  
 
-      <Marker longitude={position[0]} latitude={position[1]}>
-    
-      </Marker>
-    </Map> 
+      <Map
+        mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
+        initialViewState={{
+          longitude: position[0],
+          latitude: position[1],
+          zoom: 14,
+          pitch: 40,
+        }}
+        mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
+      >
+        <Source id="polylineLayer" type="geojson" data={dataOne}>
+          <Layer
+            id="lineLayer"
+            type="line"
+            source="my-data"
+            layout={{
+              "line-join": "round",
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-color": "rgba(3, 170, 238, 0.5)",
+              "line-width": 5,
+            }}
+          />
+        </Source>
+
+
+        <Marker longitude={position[0]} latitude={position[1]}>
+
+        </Marker>
+      </Map>
 
 
 
