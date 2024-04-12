@@ -17,6 +17,7 @@ const MapHistory = () => {
   const [play, setPlay] = useState(false)
   const [index, setIndex] = useState(0)
   const [speed, setSpeed] = useState(200)
+  const [info,setInfo]=useState(null)
 
   const [filters, setfilters] = useState({
     from: moment().add(-1, 'days'),
@@ -26,8 +27,9 @@ const MapHistory = () => {
   let timer;
 
   useEffect(() => {
-
-    if (pointData.length === 0) LoadData()
+    const storage = localStorage.getItem("info")
+    if (info === null)setInfo(JSON.parse(storage))
+    if (pointData.length === 0 && info !== null) LoadData()
     if (pointData.length !== 0 && position.length === 0) setPosition([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000])
     if (pointData.length !== 0 && polyline.length === 0) getPolyline()
     if (polyline.length !== 0) setDataOne({
@@ -54,7 +56,7 @@ const MapHistory = () => {
     }
 
 
-  }, [pointData, play, position, index])
+  }, [pointData, play, position, index,info])
 
 
 
@@ -79,6 +81,7 @@ const MapHistory = () => {
       method: "post",
       url: "/get_data",
       headers: {
+        Authorization: `Bearer ${info.token}`,
         "Content-Type": "application/json",
       },
       data: data,
@@ -86,6 +89,7 @@ const MapHistory = () => {
     axios(config)
       .then(function (response) {
         setPointData(response.data.data)
+      
       })
       .catch(function (error) {
         console.log(error);

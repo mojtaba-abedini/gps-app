@@ -6,26 +6,32 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import "./mapStyle.css";
 
-import Lottie from "lottie-react";
+
 import { Card, CardBody } from "@nextui-org/react";
-import ArrowAnimation from '../images/arrow.json'
+
 
 const MainMap = () => {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [position, setPosition] = useState([])
   const [data, setData] = useState({})
+  const [info,setInfo]=useState(null)
 
   useEffect(() => {
 
-    LoadData()
+ 
+    const storage = localStorage.getItem("info")
+    if(info === null)setInfo(JSON.parse(storage))
+    if(info !== null)LoadData()
 
-
-  }, [])
+  }, [info])
 
 
 
   function LoadData() {
+
+    
+
     var data = JSON.stringify({
       imei: "350317174465199",
 
@@ -35,6 +41,7 @@ const MainMap = () => {
       method: "post",
       url: "/getDataByIMEI",
       headers: {
+        Authorization: `Bearer ${info.token}`,
         "Content-Type": "application/json",
       },
       data: data,
