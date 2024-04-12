@@ -6,7 +6,7 @@ const BottomPlayer = ({clickPlay=false,onClickPlay = () => null,onClickPause = (
 
 
     return (
-        <div class="fixed bottom-16 left-0 z-50 grid w-full h-24 grid-cols-1 px-8 bg-white border-t border-gray-200 md:grid-cols-3 dark:bg-gray-700 dark:border-gray-600">
+        <div class="fixed bottom-16 left-0 z-50 grid w-full h-20 grid-cols-1 px-8 bg-white border-t border-gray-200 md:grid-cols-3 dark:bg-gray-700 dark:border-gray-600">
     <div class="items-center justify-center hidden me-auto md:flex">
       
         <span class="text-sm text-gray-500 dark:text-gray-400"></span>

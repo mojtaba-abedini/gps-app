@@ -12,9 +12,10 @@ import {Select, SelectItem,Input,Button,Modal,
     CardFooter
     } from "@nextui-org/react";
 import axios from "axios";
-
+import { useRouter } from 'next/navigation'
 const AddDevice = ()=>{
-
+    const router = useRouter()
+    const [info,setInfo]=useState(null)
     const [isOpen, setIsOpen] = useState(false);
     const [devices,setDevices]=useState([]);
     const [selected,setSelected]=useState("")
@@ -68,6 +69,11 @@ const AddDevice = ()=>{
  
 
     useEffect(()=>{
+
+        const storage = localStorage.getItem("info")
+        if (info === null)setInfo(JSON.parse(storage))
+
+
         // loadDevices()
     },[isOpen,selected])
 
@@ -93,6 +99,7 @@ const AddDevice = ()=>{
           method: "post",
           url: "/create_device",
           headers: {
+            Authorization: `Bearer ${info.token}`,
             "Content-Type": "application/json",
           },
           data: data,
@@ -104,6 +111,7 @@ const AddDevice = ()=>{
            
           })
           .catch(function (error) {
+       
            console.log(error);
           });
       }

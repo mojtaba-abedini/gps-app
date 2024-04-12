@@ -8,7 +8,8 @@ import "./mapStyle.css";
 import { Button } from "@nextui-org/react";
 import moment from 'moment-jalaali'
 import DatePicker from 'react-datepicker2';
-
+import { useRouter } from 'next/navigation'
+import { Card, CardBody } from "@nextui-org/react";
 const MapHistory = () => {
   const [position, setPosition] = useState([])
   const [pointData, setPointData] = useState([])
@@ -18,6 +19,7 @@ const MapHistory = () => {
   const [index, setIndex] = useState(0)
   const [speed, setSpeed] = useState(200)
   const [info,setInfo]=useState(null)
+  const router = useRouter()
 
   const [filters, setfilters] = useState({
     from: moment().add(-1, 'days'),
@@ -55,6 +57,7 @@ const MapHistory = () => {
       return () => clearInterval(timer);
     }
 
+    console.log(pointData);
 
   }, [pointData, play, position, index,info])
 
@@ -93,6 +96,7 @@ const MapHistory = () => {
       })
       .catch(function (error) {
         console.log(error);
+        router.push("login")
       });
   }
 
@@ -140,7 +144,118 @@ const MapHistory = () => {
   return (
     (position.length !== 0) ? <>
 
-      <div className="fixed bottom-40 w-full z-50">
+
+<div className="fixed  lg:pr-0 flex max-lg:bottom-42  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-50 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+
+{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">آخرین زمان به روزرسانی</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataDeviceTime}</div>
+    </div>
+  </CardBody>
+</Card> */}
+
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">وضعیت خودرو</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].VehiclePower === "0" ? "خاموش" : "روشن"}</div>
+    </div>
+  </CardBody>
+</Card>
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">ارتفاع خودرو</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataAltitude}</div>
+    </div>
+  </CardBody>
+</Card>
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">زاویه خودرو</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataAngel}</div>
+    </div>
+  </CardBody>
+</Card>
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">سرعت خودرو</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
+    </div>
+  </CardBody>
+</Card>
+{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">تعداد ماهواره ها</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataSatellites}</div>
+    </div>
+  </CardBody>
+</Card> */}
+{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div className="flex items-center justify-center text-sm ">ولتاژ باطری</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataSatellites}</div>
+    </div>
+  </CardBody>
+</Card> */}
+</div>
+
+
+
+
+
+
+
+
+      <div className="fixed bottom-32 mb-2 w-full z-50">
         <div className="w-full flex items-center justify-center p-3">
           <div className="grid grid-cols-3 gap-2">
             <DatePicker

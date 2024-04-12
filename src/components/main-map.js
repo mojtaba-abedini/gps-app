@@ -5,7 +5,7 @@ import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import "./mapStyle.css";
-
+import { useRouter } from 'next/navigation'
 
 import { Card, CardBody } from "@nextui-org/react";
 
@@ -16,13 +16,14 @@ const MainMap = () => {
   const [position, setPosition] = useState([])
   const [data, setData] = useState({})
   const [info,setInfo]=useState(null)
-
+const router = useRouter()
   useEffect(() => {
 
  
     const storage = localStorage.getItem("info")
     if(info === null)setInfo(JSON.parse(storage))
     if(info !== null)LoadData()
+
 
   }, [info])
 
@@ -54,7 +55,8 @@ const MainMap = () => {
         setPosition([response.data.DataLong / 10000000, response.data.DataLat / 10000000])
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.message);
+        router.push("login")
       });
   }
 
