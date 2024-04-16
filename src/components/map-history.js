@@ -139,15 +139,16 @@ const MapHistory = () => {
   }
   const clickPlay = () => {
     setPlay(true)
+    
   }
 
   return (
     (position.length !== 0) ? <>
 
 
-<div className="fixed  lg:pr-0 flex max-lg:bottom-42  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-50 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+<div className="fixed  lg:pr-0 flex max-lg:bottom-42  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
 
-{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -156,11 +157,11 @@ const MapHistory = () => {
           <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
         </svg>
       </div>
-      <div className="flex items-center justify-center text-sm ">آخرین زمان به روزرسانی</div>
+      <div className="flex items-center justify-center text-sm ">زمان</div>
       <div className="flex items-center justify-center text-sm">{pointData[index].DataDeviceTime}</div>
     </div>
   </CardBody>
-</Card> */}
+</Card>
 
 <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
   <CardBody>
@@ -172,7 +173,7 @@ const MapHistory = () => {
         </svg>
       </div>
       <div className="flex items-center justify-center text-sm ">وضعیت خودرو</div>
-      <div className="flex items-center justify-center text-sm">{pointData[index].VehiclePower === "0" ? "خاموش" : "روشن"}</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].VehiclePower === "0" ? "بکسل" : "روشن"}</div>
     </div>
   </CardBody>
 </Card>
@@ -185,8 +186,8 @@ const MapHistory = () => {
           <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
         </svg>
       </div>
-      <div className="flex items-center justify-center text-sm ">ارتفاع خودرو</div>
-      <div className="flex items-center justify-center text-sm">{pointData[index].DataAltitude}</div>
+      <div className="flex items-center justify-center text-sm ">طول جغرافیایی</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataLatitude/10000000}</div>
     </div>
   </CardBody>
 </Card>
@@ -199,8 +200,8 @@ const MapHistory = () => {
           <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
         </svg>
       </div>
-      <div className="flex items-center justify-center text-sm ">زاویه خودرو</div>
-      <div className="flex items-center justify-center text-sm">{pointData[index].DataAngel}</div>
+      <div className="flex items-center justify-center text-sm ">عرض جغرافیایی</div>
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataLongitude/10000000}</div>
     </div>
   </CardBody>
 </Card>
@@ -255,24 +256,24 @@ const MapHistory = () => {
 
 
 
-      <div className="fixed bottom-32 mb-2 w-full z-50">
+      <div className="fixed bottom-32 mb-2 w-full z-20">
         <div className="w-full flex items-center justify-center p-3">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid  grid-cols-3 gap-2">
             <DatePicker
-              className=" rounded-xl py-1 px-3 w-full"
-              isGregorian={true}
-              timePicker={false}
+              className="text-md rounded-lg py-1.5 px-3 w-full "
+              isGregorian={false}
+              timePicker={true}
               value={filters.from}
               onChange={(value) => setfilters({ ...filters, from: value })}
             />
             <DatePicker
-              className=" rounded-xl py-1 px-3  w-full"
-              isGregorian={true}
-              timePicker={false}
+              className="text-md rounded-lg py-1.5 px-3  w-full"
+              isGregorian={false}
+              timePicker={true}
               value={filters.to}
               onChange={(value) => setfilters({ ...filters, to: value })}
             />
-            <Button onClick={filterDate} color="primary">
+            <Button  onClick={filterDate} color="primary">
               مشاهده مسیر
             </Button>
           </div>
@@ -284,6 +285,8 @@ const MapHistory = () => {
       <BottomPlayer clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
 
       <Map
+
+   
         mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
         initialViewState={{
           longitude: position[0],

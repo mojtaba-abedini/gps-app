@@ -23,3 +23,42 @@
   left: 0.75rem;
 }
 
+
+
+/* calender style */
+.daysOfWeek {
+  font-size: 12px;
+}
+.dayWrapper {
+  font-size: 12px;
+}
+.rc-time-picker {
+  font-size: 13px !important;
+}
+.heading .title {
+  font-size: 14px !important;
+}
+.calendarContainer.jalaali{
+  width: 270px;
+ 
+  z-index: 50 !important;
+
+
+  
+
+
+}
+.rc-time-picker-panel-select li {
+  text-align: center !important;
+
+}
+.calendarContainer .dayWrapper {
+  margin-top: 0 !important;
+}
+.prev{
+  display: none;
+}
+.next{
+  display: none;
+}
+
