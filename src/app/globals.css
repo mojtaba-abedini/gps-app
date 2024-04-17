@@ -38,16 +38,16 @@
 .heading .title {
   font-size: 14px !important;
 }
-.calendarContainer.jalaali{
+.calendarContainer .jalaali{
   width: 270px;
- 
+
   z-index: 50 !important;
-
-
-  
-
+  position: absolute;
+  bottom:20px;
+  right: 10px;
 
 }
+
 .rc-time-picker-panel-select li {
   text-align: center !important;
 
