@@ -21,7 +21,8 @@ const MapHistory = () => {
   const [speed, setSpeed] = useState(200)
   const [info,setInfo]=useState(null)
   const router = useRouter()
-
+  const [value, setValue] = useState(0);
+ 
   const [filters, setfilters] = useState({
     from: moment().add(-1, 'days'),
     to: moment()
