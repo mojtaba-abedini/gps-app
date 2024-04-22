@@ -62,3 +62,23 @@
   display: none;
 }
 
+.jdp-year {
+  font-size: 14px !important;
+}
+
+.jdp-month {
+  font-size: 14px !important;
+}
+
+.jdp-icon-plus svg {
+  width: 20px !important;
+}
+.jdp-icon-minus svg {
+  width: 20px !important;
+}
+
+.jdp-day {
+  font-size: 14px !important;
+}
+
+
