@@ -6,10 +6,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import BottomPlayer from "./bottomPlayer";
 import "./mapStyle.css";
 import { Button } from "@nextui-org/react";
-import moment from 'moment-jalaali'
-import DatePicker from 'react-datepicker2';
+
 import { useRouter } from 'next/navigation'
 import { Card, CardBody } from "@nextui-org/react";
+
+
+
+import '@majidh1/jalalidatepicker';
+import '@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css'
 
 const MapHistory = () => {
   const [position, setPosition] = useState([])
@@ -20,15 +24,77 @@ const MapHistory = () => {
   const [index, setIndex] = useState(0)
   const [speed, setSpeed] = useState(200)
   const [info, setInfo] = useState(null)
-  const router = useRouter()
-  const [value, setValue] = useState(0);
+  const [valueFrom, setValueFrom] = useState("");
+  const [valueTo, setValueTo] = useState("");
 
-  const [filters, setfilters] = useState({
-    from: moment().add(-1, 'days'),
-    to: moment()
-  })
+  const router = useRouter()
+
 
   let timer;
+
+  jalaliDatepicker.startWatch({
+    minDate: "attr",
+    maxDate: "attr"
+  });
+
+  jalaliDatepicker.updateOptions({ time: true, hasSecond: false, persianDigits: true });
+
+
+  function jalali_to_gregorian(jy, jm, jd) {
+    jy = Number(jy);
+    jm = Number(jm);
+    jd = Number(jd);
+    var gy = (jy <= 979) ? 621 : 1600;
+    jy -= (jy <= 979) ? 0 : 979;
+    var days = (365 * jy) + ((parseInt(jy / 33)) * 8) + (parseInt(((jy % 33) + 3) / 4))
+      + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+    gy += 400 * (parseInt(days / 146097));
+    days %= 146097;
+    if (days > 36524) {
+      gy += 100 * (parseInt(--days / 36524));
+      days %= 36524;
+      if (days >= 365) days++;
+    }
+    gy += 4 * (parseInt((days) / 1461));
+    days %= 1461;
+    gy += parseInt((days - 1) / 365);
+    if (days > 365) days = (days - 1) % 365;
+    var gd = days + 1;
+    var sal_a = [0, 31, ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var gm
+    for (gm = 0; gm < 13; gm++) {
+      var v = sal_a[gm];
+      if (gd <= v) break;
+      gd -= v;
+    }
+    return [gy, gm, gd];
+  }
+
+
+
+  function SetDate() {
+
+    const from = document.getElementById("date-from").value
+    var dateFrom = from.split(' ')[0].split("/");
+
+    const to = document.getElementById("date-to").value
+    var dateTo = to.split(' ')[0].split("/");
+
+    setValueFrom(jalali_to_gregorian(dateFrom[0], dateFrom[1], dateFrom[2]).join("/") + " " + from.split(' ')[1])
+    setValueTo(jalali_to_gregorian(dateTo[0], dateTo[1], dateTo[2]).join("/") + " " + to.split(' ')[1])
+
+    console.log(valueFrom);
+    console.log(valueTo);
+
+    setPointData([])
+    setPosition([])
+    setDataOne([])
+
+  }
+
+
+
+
 
   useEffect(() => {
     const storage = localStorage.getItem("info")
@@ -61,7 +127,7 @@ const MapHistory = () => {
 
     console.log(pointData);
 
-  }, [pointData, play, position, index, info])
+  }, [pointData, play, position, index])
 
 
 
@@ -78,11 +144,10 @@ const MapHistory = () => {
 
     var data = JSON.stringify({
       DeviceId: 1,
-      DateFrom: filters.from,
-      DateTo: filters.to,
+      DateFrom: valueFrom,
+      DateTo: valueTo,
     });
-    console.log(filters.from);
-    console.log(filters.to);
+
 
     const config = {
       method: "post",
@@ -123,12 +188,7 @@ const MapHistory = () => {
   }
 
 
-  function filterDate() {
-
-    setPointData([])
-    setPosition([])
-    setDataOne([])
-  }
+  
 
   const clickRefresh = () => {
     getPolyline()
@@ -151,8 +211,10 @@ const MapHistory = () => {
       <div className="fixed bottom-32 mb-2 w-full z-20">
         <div className="w-full flex items-center justify-center p-3">
           <div className="grid  grid-cols-3 gap-2">
-            <DatePicker
-              className="text-md rounded-lg py-1.5 px-3 w-full "
+            <input className="text-md rounded-lg py-1.5 px-3 w-full form-control" id="date-from" data-jdp data-jdp-miladi-input="miladi_date" type="text" placeholder="تاریخ را وارد کنید" />
+            <input className="text-md rounded-lg py-1.5 px-3 w-full form-control" id="date-to" data-jdp data-jdp-miladi-input="miladi_date" type="text" placeholder="تاریخ را وارد کنید" />
+            {/* <DatePicker
+             
               isGregorian={false}
               timePicker={true}
               value={filters.from}
@@ -164,8 +226,8 @@ const MapHistory = () => {
               timePicker={true}
               value={filters.to}
               onChange={(value) => setfilters({ ...filters, to: value })}
-            />
-            <Button onClick={filterDate} color="primary">
+            /> */}
+            <Button onClick={SetDate} color="primary">
               مشاهده مسیر
             </Button>
           </div>
@@ -250,7 +312,7 @@ const MapHistory = () => {
               </div>
             </CardBody>
           </Card>
-         
+
         </div>
 
 
@@ -302,7 +364,7 @@ const MapHistory = () => {
         <span class="sr-only">Loading...</span> */}
       </div>
 
-            }</>
+      }</>
   );
 };
 
