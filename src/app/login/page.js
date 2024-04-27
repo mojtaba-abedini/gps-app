@@ -148,8 +148,8 @@ const LoginPage = () => {
                   <div className="grid grid-cols-2 w-full">
                     <div className="flex justify-start w-full">
                       <Button
-                        isLoading={isLoading}
-                        onClick={()=>router.push("/verification", { scroll: false })}
+                     
+                        onClick={() => router.push("/verification", { scroll: false })}
                         color="primary"
                         variant="light"
                       >
