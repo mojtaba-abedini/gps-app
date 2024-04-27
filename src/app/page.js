@@ -1,5 +1,6 @@
 "use client"
 
+import BottomNavigation from "@/components/bottomNavigation";
 import dynamic from "next/dynamic";
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react';
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <div>
       <MapWithNoSSR />
+      <BottomNavigation active={1}  />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import FloatingSideBar from "../components/floatingSideBar";
 import FloatingButton from "../components/floatingButton";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import {NextUIProvider} from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 const inter = Inter({ subsets: ["latin"] });
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from 'axios';
@@ -21,16 +21,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="rtl">
       <body className={inter.className}>
-      <NextUIProvider>
-        <ThemeProvider attribute="class">
-        {children}
-          <BottomNavigation />
-
-         
-        </ThemeProvider>
-
+        <NextUIProvider>
+          <ThemeProvider attribute="class">
+            {children}
+          </ThemeProvider>
         </NextUIProvider>
-              </body>
+      </body>
     </html>
   );
 }

@@ -58,8 +58,8 @@ const LoginPage = () => {
 
   const Login = () => {
     var data = JSON.stringify({
-        UserName: values.username,
-        Password: values.password,
+      UserName: values.username,
+      Password: values.password,
     });
     var config = {
       method: "post",
@@ -77,7 +77,7 @@ const LoginPage = () => {
         router.push("/", { scroll: false });
         setIsLoading(false);
       })
-      .catch(function (error) {});
+      .catch(function (error) { });
   };
 
   return (
@@ -93,7 +93,7 @@ const LoginPage = () => {
               <>
                 <ModalHeader className="flex flex-col gap-1">
                   <div className="w-48 mb-2">
-                   <div>ایز اسمارت</div>
+                    <div>ایز اسمارت</div>
                   </div>
                 </ModalHeader>
                 <ModalBody>
@@ -145,13 +145,29 @@ const LoginPage = () => {
                   />
                 </ModalBody>
                 <ModalFooter>
-                  <Button
-                    isLoading={isLoading}
-                    onClick={validation}
-                    color="primary"
-                  >
-                    ورود به برنامه
-                  </Button>
+                  <div className="grid grid-cols-2 w-full">
+                    <div className="flex justify-start w-full">
+                      <Button
+                        isLoading={isLoading}
+                        onClick={()=>router.push("/verification", { scroll: false })}
+                        color="primary"
+                        variant="light"
+                      >
+                        فراموشی رمز
+                      </Button>
+                    </div>
+                    <div className="flex justify-end w-full">
+                      <Button
+                        isLoading={isLoading}
+                        onClick={validation}
+                        color="primary"
+                      >
+                        ورود به برنامه
+                      </Button>
+
+                    </div>
+
+                  </div>
                 </ModalFooter>
               </>
             </ModalContent>

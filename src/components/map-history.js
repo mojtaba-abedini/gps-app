@@ -34,12 +34,13 @@ const MapHistory = () => {
 
   jalaliDatepicker.startWatch({
     minDate: "attr",
-    maxDate: "attr"
+    maxDate: "attr",
+
   });
 
-  jalaliDatepicker.updateOptions({ time: true, hasSecond: false, persianDigits: true });
+  jalaliDatepicker.updateOptions({ time:true, hasSecond: false, persianDigits: true});
 
-
+  
   function jalali_to_gregorian(jy, jm, jd) {
     jy = Number(jy);
     jm = Number(jm);
@@ -165,7 +166,7 @@ const MapHistory = () => {
       })
       .catch(function (error) {
         console.log(error);
-        router.push("login")
+  
       });
   }
 

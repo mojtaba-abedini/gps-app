@@ -1,337 +1,371 @@
-"use client"
+"use client";
+import React, { useEffect, useState } from "react";
+import Map, { Marker, Source, Layer } from "react-map-gl";
+import axios from 'axios'
+import "mapbox-gl/dist/mapbox-gl.css";
+import BottomPlayer from "./bottomPlayer";
+import "./mapStyle.css";
+import { Button } from "@nextui-org/react";
 
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import './mapStyle.css';
-import L from 'leaflet';
-import { useState } from 'react';
-// import Routing from "./routing";
-
-
-const icon = new L.Icon({
-    iconUrl: './images/Location.svg',
-    iconRetinaUrl: './images/Location.svg',
-    iconAnchor: null,
-    popupAnchor: null,
-    shadowUrl: null,
-    shadowSize: null,
-    shadowAnchor: null,
-    iconSize: new L.Point(30, 50),
-
-});
+import { useRouter } from 'next/navigation'
+import { Card, CardBody } from "@nextui-org/react";
 
 
 
+import '@majidh1/jalalidatepicker';
+import '@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css'
+
+const MapHistory = () => {
+  const [position, setPosition] = useState([])
+  const [pointData, setPointData] = useState([])
+  const [dataOne, setDataOne] = useState({})
+  const polyline = []
+  const [play, setPlay] = useState(false)
+  const [index, setIndex] = useState(0)
+  const [speed, setSpeed] = useState(200)
+  const [info, setInfo] = useState(null)
+  const [valueFrom, setValueFrom] = useState("");
+  const [valueTo, setValueTo] = useState("");
+
+  const router = useRouter()
+
+
+  let timer;
+
+  jalaliDatepicker.startWatch({
+    minDate: "attr",
+    maxDate: "attr"
+  });
+
+  jalaliDatepicker.updateOptions({ time: true, hasSecond: false, persianDigits: true });
+
+
+  function jalali_to_gregorian(jy, jm, jd) {
+    jy = Number(jy);
+    jm = Number(jm);
+    jd = Number(jd);
+    var gy = (jy <= 979) ? 621 : 1600;
+    jy -= (jy <= 979) ? 0 : 979;
+    var days = (365 * jy) + ((parseInt(jy / 33)) * 8) + (parseInt(((jy % 33) + 3) / 4))
+      + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+    gy += 400 * (parseInt(days / 146097));
+    days %= 146097;
+    if (days > 36524) {
+      gy += 100 * (parseInt(--days / 36524));
+      days %= 36524;
+      if (days >= 365) days++;
+    }
+    gy += 4 * (parseInt((days) / 1461));
+    days %= 1461;
+    gy += parseInt((days - 1) / 365);
+    if (days > 365) days = (days - 1) % 365;
+    var gd = days + 1;
+    var sal_a = [0, 31, ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var gm
+    for (gm = 0; gm < 13; gm++) {
+      var v = sal_a[gm];
+      if (gd <= v) break;
+      gd -= v;
+    }
+    return [gy, gm, gd];
+  }
+
+
+
+  function SetDate() {
+
+    const from = document.getElementById("date-from").value
+    var dateFrom = from.split(' ')[0].split("/");
+
+    const to = document.getElementById("date-to").value
+    var dateTo = to.split(' ')[0].split("/");
+
+    setValueFrom(jalali_to_gregorian(dateFrom[0], dateFrom[1], dateFrom[2]).join("/") + " " + from.split(' ')[1])
+    setValueTo(jalali_to_gregorian(dateTo[0], dateTo[1], dateTo[2]).join("/") + " " + to.split(' ')[1])
+
+    console.log(valueFrom);
+    console.log(valueTo);
+
+    setPointData([])
+    setPosition([])
+    setDataOne([])
+
+  }
 
 
 
 
-const polyline = [
-    [35.4734916, 50.9894766],
-    [35.4734916, 50.9894766],
-    [35.4734916, 50.9894766],
-    [35.4734783, 50.989435],
-    [35.4734783, 50.989435],
-    [35.4734783, 50.989435],
-    [35.4734783, 50.989435],
-    [35.4734783, 50.989435],
-    [35.4734783, 50.989435],
-    [35.4734783, 50.989435],
-    [35.4734233, 50.98963],
-    [35.4733899, 50.989695],
-    [35.4733583, 50.9897149],
-    [35.47316, 50.9897733],
-    [35.4731983, 50.9898866],
-    [35.4732283, 50.990005],
-    [35.4728416, 50.990235],
-    [35.4727616, 50.9902216],
-    [35.4727616, 50.9902216],
-    [35.4727616, 50.9902216],
-    [35.4727616, 50.9902216],
-    [35.4727616, 50.9902216],
-    [35.4726349, 50.9902649],
-    [35.47263, 50.9902983],
-    [35.47258, 50.9904883],
-    [35.4722816, 50.9910016],
-    [35.47168, 50.9914716],
-    [35.4716816, 50.9915983],
-    [35.4717516, 50.9918183],
-    [35.4721133, 50.9927416],
-    [35.472075, 50.9928483],
-    [35.47199, 50.9929366],
-    [35.4703466, 50.9939649],
-    [35.4698149, 50.9942283],
-    [35.469725, 50.9942049],
-    [35.4695966, 50.99409],
-    [35.4689849, 50.9933749],
-    [35.4688566, 50.9933616],
-    [35.4686683, 50.9934533],
-    [35.4685533, 50.9935933],
-    [35.4684433, 50.99389],
-    [35.468405, 50.9943966],
-    [35.4685866, 50.995425],
-    [35.4688516, 50.9959916],
-    [35.4695899, 50.9969366],
-    [35.4701316, 50.9990483],
-    [35.4706766, 51.0012883],
-    [35.4712533, 51.0035566],
-    [35.4718216, 51.0057833],
-    [35.4726216, 51.0078933],
-    [35.4737483, 51.009695],
-    [35.4749466, 51.0114099],
-    [35.4761066, 51.0133133],
-    [35.4770083, 51.0154499],
-    [35.47763, 51.0176599],
-    [35.4780066, 51.0199816],
-    [35.4780916, 51.0210083],
-    [35.4779616, 51.022955],
-    [35.4773316, 51.024535],
-    [35.476065, 51.026315],
-    [35.4747916, 51.0279933],
-    [35.473455, 51.0290883],
-    [35.4716583, 51.0297416],
-    [35.4699583, 51.0306549],
-    [35.469385, 51.0306883],
-    [35.4689716, 51.0304783],
-    [35.4686199, 51.03009],
-    [35.4683916, 51.0295466],
-    [35.4700899, 51.0274999],
-    [35.4705333, 51.0278416],
-    [35.4708033, 51.0283616],
-    [35.4715683, 51.0304016],
-    [35.4724516, 51.0325266],
-    [35.4734849, 51.034625],
-    [35.474555, 51.0364416],
-    [35.475755, 51.0382999],
-    [35.47701, 51.0399583],
-    [35.4784216, 51.0416383],
-    [35.4798966, 51.0430949],
-    [35.4814716, 51.04471],
-    [35.4830316, 51.0462533],
-    [35.484515, 51.0477333],
-    [35.4859849, 51.0491983],
-    [35.48749, 51.0507183],
-    [35.4889916, 51.0522116],
-    [35.4904283, 51.0536683],
-    [35.4918683, 51.05509],
-    [35.4933149, 51.0565433],
-    [35.494825, 51.0580666],
-    [35.4963383, 51.05958],
-    [35.4979033, 51.0611133],
-    [35.4993616, 51.0625049],
-    [35.5008233, 51.06385],
-    [35.5023633, 51.0652183],
-    [35.50389, 51.0665583],
-    [35.5053733, 51.06782],
-    [35.5069166, 51.0690666],
-    [35.5086333, 51.0704583],
-    [35.5102583, 51.0717533],
-    [35.5118916, 51.0730116],
-    [35.513565, 51.0742916],
-    [35.5152233, 51.0755816],
-    [35.5168666, 51.0768733],
-    [35.51841, 51.078075],
-    [35.5199983, 51.0793383],
-    [35.5215566, 51.0806849],
-    [35.5230733, 51.0821833],
-    [35.5244516, 51.0837049],
-    [35.52588, 51.0854966],
-    [35.5273016, 51.0873949],
-    [35.5285616, 51.0892499],
-    [35.5297183, 51.09117],
-    [35.5307516, 51.093105],
-    [35.5318366, 51.0951183],
-    [35.5328566, 51.0970016],
-    [35.5338716, 51.0990149],
-    [35.5349716, 51.1010583],
-    [35.5360083, 51.1030249],
-    [35.5370333, 51.1049666],
-    [35.5379966, 51.1068383],
-    [35.5391083, 51.1089],
-    [35.5401966, 51.1110049],
-    [35.5413233, 51.1130866],
-    [35.5424033, 51.1150616],
-    [35.543585, 51.116895],
-    [35.5448766, 51.1186383],
-    [35.5462666, 51.1203199],
-    [35.547725, 51.1218383],
-    [35.5493, 51.1232983],
-    [35.550815, 51.124525],
-    [35.5524383, 51.1257333],
-    [35.5542083, 51.1268466],
-    [35.5559016, 51.1277433],
-    [35.5577266, 51.128575],
-    [35.5595716, 51.1293933],
-    [35.5613016, 51.1302916],
-    [35.56295, 51.1313166],
-    [35.5646866, 51.1325433],
-    [35.5662383, 51.13374],
-    [35.5678799, 51.1352466],
-    [35.5693016, 51.1367083],
-    [35.5707066, 51.1383583],
-    [35.5720533, 51.1401933],
-    [35.5732816, 51.1420216],
-    [35.5744216, 51.14396],
-    [35.5754116, 51.1459316],
-    [35.5763633, 51.1480149],
-    [35.5771783, 51.150025],
-    [35.5781116, 51.1521116],
-    [35.5790516, 51.1541116],
-    [35.580055, 51.156185],
-    [35.581015, 51.1580616],
-    [35.582075, 51.1600233],
-    [35.5831466, 51.1619049],
-    [35.5842083, 51.163735],
-    [35.5853399, 51.1655733],
-    [35.58649, 51.1673533],
-    [35.587705, 51.1691216],
-    [35.5888749, 51.1708316],
-    [35.5900483, 51.1725216],
-    [35.59128, 51.1743033],
-    [35.5925666, 51.1761299],
-    [35.5938183, 51.17799],
-    [35.5950433, 51.1797],
-    [35.5962516, 51.18143],
-    [35.5974333, 51.183175],
-    [35.5987866, 51.1851383],
-    [35.599915, 51.1869116],
-    [35.6010866, 51.1887733],
-    [35.602255, 51.1906483],
-    [35.6034266, 51.1926233],
-    [35.6044883, 51.1944666],
-    [35.6056183, 51.1964433],
-    [35.60666, 51.1982783],
-    [35.6077383, 51.2001483],
-    [35.6088316, 51.2020183],
-    [35.6098616, 51.203855],
-    [35.6109249, 51.2058],
-    [35.611945, 51.2077016],
-    [35.6130533, 51.2097],
-    [35.61403, 51.2115599],
-    [35.61499, 51.2134333],
-    [35.6160016, 51.2154449],
-    [35.6170466, 51.217515],
-    [35.6180116, 51.2194516],
-    [35.6189933, 51.2214333],
-    [35.6199516, 51.2233583],
-    [35.6208516, 51.2252533],
-    [35.6216199, 51.2272583],
-    [35.622235, 51.2293783],
-    [35.6228666, 51.2315283],
-    [35.62356, 51.2334816],
-    [35.6239916, 51.2345133],
-    [35.6250466, 51.2364249],
-    [35.62623, 51.2382533],
-    [35.6273999, 51.2401416],
-    [35.6284149, 51.2419783],
-    [35.6293966, 51.24394],
-    [35.6304183, 51.2458449],
-    [35.6315416, 51.2478416],
-    [35.63265, 51.2496016],
-    [35.6337333, 51.2514416],
-    [35.6348133, 51.253265],
-    [35.6359583, 51.255195],
-    [35.6370283, 51.25702],
-    [35.6381483, 51.2589066],
-    [35.6392516, 51.26078],
-    [35.6403916, 51.2625916],
-    [35.6415816, 51.2642983],
-    [35.6429066, 51.2660599],
-    [35.6442233, 51.267665],
-    [35.6456449, 51.2692266],
-    [35.6471033, 51.2707783],
-    [35.6485583, 51.2722316],
-    [35.6499966, 51.2736183],
-    [35.6513216, 51.2753033],
-    [35.6523533, 51.2771199],
-    [35.6532766, 51.2791883],
-    [35.6544133, 51.2811199],
-    [35.6559033, 51.28276],
-    [35.657495, 51.283955],
-    [35.6591366, 51.2849183],
-    [35.6609216, 51.285755],
-    [35.6615333, 51.2862116],
-    [35.6618783, 51.2868033],
-    [35.6620916, 51.2877733],
-    [35.6621433, 51.2902366],
-    [35.6620083, 51.2924883],
-    [35.6618483, 51.2947433],
-    [35.6617733, 51.296985],
-    [35.6618916, 51.2992266],
-    [35.6621799, 51.3016683],
-    [35.6624533, 51.30407],
-    [35.6626283, 51.3063449],
-    [35.6626866, 51.3085],
-    [35.6626866, 51.3085],
-    [35.6626783, 51.3086083],
-    [35.6626949, 51.3087733],
-    [35.6627049, 51.30886],
-    [35.6627283, 51.3088916],
-    [35.6628016, 51.3089149],
-    [35.6653499, 51.3085766],
-    [35.6671683, 51.3086699],
-    [35.669015, 51.3087433],
-    [35.67084, 51.3088866],
-    [35.6727466, 51.3091549],
-    [35.6746566, 51.30946],
-    [35.6750566, 51.3095916],
-    [35.6753083, 51.3098466],
-    [35.675375, 51.3100383],
-    [35.6753616, 51.3105883],
-    [35.6752733, 51.3128283],
-    [35.675095, 51.31511],
-    [35.6749916, 51.317445],
-    [35.6749183, 51.3197033],
 
-]
+  useEffect(() => {
+    const storage = localStorage.getItem("info")
+    if (info === null) setInfo(JSON.parse(storage))
+    if (pointData.length === 0 && info !== null) LoadData()
+    if (pointData.length !== 0 && position.length === 0) setPosition([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000])
+    if (pointData.length !== 0 && polyline.length === 0) getPolyline()
+    if (polyline.length !== 0) setDataOne({
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: polyline,
+      },
+    })
 
 
-const Map = () => {
+    if (play) {
 
-    const [position, setPosition] = useState([35.7, 51.6])
+      timer = setInterval(() => {
+        if (index < (polyline.length)) {
+          setIndex(prevIndex => prevIndex + 1)
+          setPosition(polyline[index]);
+        } else setPlay(false)
 
-    function LocationMarker() {
+      }, speed);
 
-        const map = useMapEvents({
-            click(e) {
-                console.log(e.latlng);
-                setPosition(e.latlng)
-                map.flyTo(e.latlng, map.getZoom())
-            },
-
-        })
-
-        return position === null ? null : (
-            <Marker position={position} icon={icon}>
-                <Popup>You are here</Popup>
-            </Marker>
-        )
+      return () => clearInterval(timer);
     }
 
+    console.log(pointData);
+
+  }, [pointData, play, position, index])
+
+
+
+  function getPolyline() {
+
+    pointData.map(item => {
+      polyline.push([(item.DataLongitude) / 10000000, (item.DataLatitude) / 10000000])
+    })
+
+  }
+
+
+  function LoadData() {
+
+    var data = JSON.stringify({
+      DeviceId: 1,
+      DateFrom: valueFrom,
+      DateTo: valueTo,
+    });
+
+
+    const config = {
+      method: "post",
+      url: "/get_data",
+      headers: {
+        Authorization: `Bearer ${info.token}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+    axios(config)
+      .then(function (response) {
+        setPointData(response.data.data)
+
+      })
+      .catch(function (error) {
+        console.log(error);
+        router.push("login")
+      });
+  }
+
+
+  function clickBackward() {
+
+    getPolyline()
+    if (index !== 0) {
+
+      setIndex(index - 1)
+      if (polyline[index] != undefined) setPosition(polyline[index])
+    }
+  }
+  function clickForward() {
+    getPolyline()
+    if (index < (polyline.length) - 1) {
+      setIndex(index + 1)
+      if (polyline[index] != undefined) setPosition(polyline[index])
+    }
+  }
+
+
+  
+
+  const clickRefresh = () => {
+    getPolyline()
+    setIndex(0)
+
+    setPosition(polyline[index])
+  }
+
+  const clickPause = () => {
+    setPlay(false)
+    clearTimeout(timer)
+  }
+  const clickPlay = () => {
+    setPlay(true)
+
+  }
+
+  return (
+    <>
+      <div className="fixed bottom-32 mb-2 w-full z-20">
+        <div className="w-full flex items-center justify-center p-3">
+          <div className="grid  grid-cols-3 gap-2">
+            <input className="text-md rounded-lg py-1.5 px-3 w-full form-control" id="date-from" data-jdp data-jdp-miladi-input="miladi_date" type="text" placeholder="تاریخ را وارد کنید" />
+            <input className="text-md rounded-lg py-1.5 px-3 w-full form-control" id="date-to" data-jdp data-jdp-miladi-input="miladi_date" type="text" placeholder="تاریخ را وارد کنید" />
+            {/* <DatePicker
+             
+              isGregorian={false}
+              timePicker={true}
+              value={filters.from}
+              onChange={(value) => setfilters({ ...filters, from: value })}
+            />
+            <DatePicker
+              className="text-md rounded-lg py-1.5 px-3  w-full"
+              isGregorian={false}
+              timePicker={true}
+              value={filters.to}
+              onChange={(value) => setfilters({ ...filters, to: value })}
+            /> */}
+            <Button onClick={SetDate} color="primary">
+              مشاهده مسیر
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <BottomPlayer clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
+
+      {(position.length !== 0) ? <>
+
+
+        <div className="fixed  lg:pr-0 flex max-lg:bottom-42  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex items-center justify-center text-sm ">زمان</div>
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataDeviceTime}</div>
+              </div>
+            </CardBody>
+          </Card>
+
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex items-center justify-center text-sm ">وضعیت خودرو</div>
+                <div className="flex items-center justify-center text-sm">{pointData[index].VehiclePower === "0" ? "بکسل" : "روشن"}</div>
+              </div>
+            </CardBody>
+          </Card>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex items-center justify-center text-sm ">طول جغرافیایی</div>
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataLatitude / 10000000}</div>
+              </div>
+            </CardBody>
+          </Card>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex items-center justify-center text-sm ">عرض جغرافیایی</div>
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataLongitude / 10000000}</div>
+              </div>
+            </CardBody>
+          </Card>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex items-center justify-center text-sm ">سرعت خودرو</div>
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
+              </div>
+            </CardBody>
+          </Card>
+
+        </div>
+
+
+
+        <Map
+
+
+          mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
+          initialViewState={{
+            longitude: position[0],
+            latitude: position[1],
+            zoom: 14,
+            pitch: 40,
+          }}
+          mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
+        >
+          <Source id="polylineLayer" type="geojson" data={dataOne}>
+            <Layer
+              id="lineLayer"
+              type="line"
+              source="my-data"
+              layout={{
+                "line-join": "round",
+                "line-cap": "round",
+              }}
+              paint={{
+                "line-color": "rgba(3, 170, 238, 0.5)",
+                "line-width": 5,
+              }}
+            />
+          </Source>
+
+
+          <Marker longitude={position[0]} latitude={position[1]}>
+
+          </Marker>
+        </Map>
 
 
 
 
-    return (
-      <div>
 
-     
-        
-            <MapContainer center={position} zoom={13} scrollWheelZoom={true}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                url="http://mt1.google.com/vt/lyrs=p&hl=fa&x={x}&y={y}&z={z}"
+      </> : <div role="status" className="flex items-center justify-center h-screen">
+        <div>دیتایی وجود ندارد</div>
+        {/* <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+        </svg>
+        <span class="sr-only">Loading...</span> */}
+      </div>
 
+      }</>
+  );
+};
 
-                />
-                <Polyline color='black' positions={polyline} weight={7} smoothFactor={1} />
-                <LocationMarker />
-                {/* <Routing /> */}
-            </MapContainer>
-            </div>
-    )
-}
-
-
-export default Map;
+export default MapHistory;
