@@ -3,11 +3,18 @@ import React, { useEffect, useState } from "react";
 import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import {useDisclosure } from "@nextui-org/react";
+
+
+
+
 import "./mapStyle.css";
 import { useRouter } from 'next/navigation'
 
 import { Card, CardBody } from "@nextui-org/react";
+import FloatingButton from "./floatingButton";
+import FloatingSideBar from "./floatingSideBar";
+import FloatDropdown from "./float-dropdown";
 
 
 const MainMap = () => {
@@ -15,14 +22,14 @@ const MainMap = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [position, setPosition] = useState([])
   const [data, setData] = useState({})
-  const [info,setInfo]=useState(null)
-const router = useRouter()
+  const [info, setInfo] = useState(null)
+  const router = useRouter()
   useEffect(() => {
 
- 
+
     const storage = localStorage.getItem("info")
-    if(info === null)setInfo(JSON.parse(storage))
-    if(info !== null)LoadData()
+    if (info === null) setInfo(JSON.parse(storage))
+    if (info !== null) LoadData()
 
 
   }, [info])
@@ -31,7 +38,7 @@ const router = useRouter()
 
   function LoadData() {
 
-    
+
 
     var data = JSON.stringify({
       imei: "350317174465199",
@@ -49,7 +56,7 @@ const router = useRouter()
     };
     axios(config)
       .then(function (response) {
-        console.log(response.data);
+
         setData(response.data)
 
         setPosition([response.data.DataLong / 10000000, response.data.DataLat / 10000000])
@@ -66,130 +73,156 @@ const router = useRouter()
   return (
     (position.length !== 0) ? <>
 
-      <div className="fixed lg:pr-0 flex max-lg:bottom-14  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-50 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+      {position[0] !== "" && position[0] ?
 
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">آخرین زمان به روزرسانی</div>
-              <div className="flex items-center justify-center text-sm">{data._DataTimeStamp}</div>
-            </div>
-          </CardBody>
-        </Card>
+        <>
+          <div className="fixed lg:pr-0 flex max-lg:bottom-14  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-50 gap-2 lg:gap-3 max-md:overflow-x-auto ">
 
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">وضعیت خودرو</div>
-              <div className="flex items-center justify-center text-sm">{data.VehiclePower === "0" ? "خاموش" : "روشن"}</div>
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">ارتفاع خودرو</div>
-              <div className="flex items-center justify-center text-sm">{data.DataAlt}</div>
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">زاویه خودرو</div>
-              <div className="flex items-center justify-center text-sm">{data.DataAngle}</div>
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">سرعت خودرو</div>
-              <div className="flex items-center justify-center text-sm">{data.DataSpeed}</div>
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">تعداد ماهواره ها</div>
-              <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
-            </div>
-          </CardBody>
-        </Card>
-        <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-          <CardBody>
-            <div className="grid grid-cols-1 items-center">
-              <div className="flex items-center justify-center">
-                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div className="flex items-center justify-center text-sm ">ولتاژ باطری</div>
-              <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
-            </div>
-          </CardBody>
-        </Card>
-      </div>
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">آخرین زمان به روزرسانی</div>
+                  <div className="flex items-center justify-center text-sm">{data._DataTimeStamp}</div>
+                </div>
+              </CardBody>
+            </Card>
+
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">وضعیت خودرو</div>
+                  <div className="flex items-center justify-center text-sm">{data.VehiclePower === "0" ? "خاموش" : "روشن"}</div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">ارتفاع خودرو</div>
+                  <div className="flex items-center justify-center text-sm">{data.DataAlt}</div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">زاویه خودرو</div>
+                  <div className="flex items-center justify-center text-sm">{data.DataAngle}</div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">سرعت خودرو</div>
+                  <div className="flex items-center justify-center text-sm">{data.DataSpeed}</div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">تعداد ماهواره ها</div>
+                  <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+              <CardBody>
+                <div className="grid grid-cols-1 items-center">
+                  <div className="flex items-center justify-center">
+                    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-center text-sm ">ولتاژ باطری</div>
+                  <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
+                </div>
+              </CardBody>
+            </Card>
+          </div>
 
 
-      <div className="w-full">
+          <div className="w-full">
+            <Map
+              mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
+              initialViewState={{
+                longitude: position[0],
+                latitude: position[1],
+                zoom: 14,
+                pitch: 40,
+              }}
+              mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
+            >
+
+              <Marker longitude={position[0]} latitude={position[1]}>
+                {/* <img width={25} src="/images/marker-icon.png" /> */}
+              </Marker>
+            </Map>
+            <FloatDropdown/>
+          </div>
+        </> :
+      <>
         <Map
           mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
           initialViewState={{
-            longitude: position[0],
-            latitude: position[1],
-            zoom: 14,
+            longitude: 51.404343,
+            latitude: 35.715298,
+            zoom: 10,
             pitch: 40,
           }}
           mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
         >
 
-
-          <Marker longitude={position[0]} latitude={position[1]}>
-            {/* <img width={25} src="/images/marker-icon.png" /> */}
-          </Marker>
         </Map>
 
-      </div>
+        <FloatDropdown/>
 
+
+
+
+
+
+     
+      </>
+      }
 
 
     </> : <div role="status" className="flex items-center justify-center h-screen">

@@ -149,7 +149,7 @@ const LoginPage = () => {
                     <div className="flex justify-start w-full">
                       <Button
                      
-                        onClick={() => router.push("/verification", { scroll: false })}
+                        onClick={() => router.push("/forgot-verification", { scroll: false })}
                         color="primary"
                         variant="light"
                       >
