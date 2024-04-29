@@ -5,10 +5,7 @@
 import { useTheme } from "next-themes";
 import '../globals.css'
 
-import '@majidh1/jalalidatepicker';
-import '@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css'
 
-import { useState } from "react";
 import BottomNavigation from "@/components/bottomNavigation";
 const Possibilities = () => {
     const { systemTheme, theme, setTheme } = useTheme();
