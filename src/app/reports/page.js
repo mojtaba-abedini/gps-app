@@ -8,6 +8,8 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 
 import { useState } from "react";
+import FloatDropdown from '@/components/float-dropdown';
+
 const Reports = () => {
     const { theme, setTheme } = useTheme();
     const [notification, setNotification] = useState(true)
@@ -16,6 +18,7 @@ const Reports = () => {
 
     return (
         <>
+     
             <div class="flex lg:h-screen items-center justify-center z-40">
 
                 <div className="grid grid-cols-1 gap-3 w-full md:w-1/4 px-5 mt-5 mb-20">
@@ -41,7 +44,8 @@ const Reports = () => {
 
                 </div>
             </div>
-
+<FloatDropdown/>
+          
             <BottomNavigation active={4} />
         </>
     )

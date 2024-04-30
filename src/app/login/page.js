@@ -150,7 +150,7 @@ const LoginPage = () => {
                       <Button
                      
                         onClick={() => router.push("/forgot-verification", { scroll: false })}
-                        color="primary"
+                        className="text-[#14b8a6]"
                         variant="light"
                       >
                         فراموشی رمز
@@ -158,9 +158,10 @@ const LoginPage = () => {
                     </div>
                     <div className="flex justify-end w-full">
                       <Button
+                      className="bg-[#14b8a6] dark:bg-[#1e293b] text-white"
                         isLoading={isLoading}
                         onClick={validation}
-                        color="primary"
+                     
                       >
                         ورود به برنامه
                       </Button>

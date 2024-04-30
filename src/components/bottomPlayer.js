@@ -38,7 +38,7 @@ const BottomPlayer = ({clickPlay=false,onClickPlay = () => null,onClickPause = (
                 { clickPlay ? 
 
 
-                <button onClick={()=>onClickPause()} data-tooltip-target="tooltip-pause" type="button" class="inline-flex items-center justify-center p-2.5 mx-2 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                <button onClick={()=>onClickPause()} data-tooltip-target="tooltip-pause" type="button" class="inline-flex items-center justify-center p-2.5 mx-2 font-medium  bg-[#14b8a6] dark:bg-[#1e293b] text-white rounded-full  group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                  <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 10 16">
                         <path fill-rule="evenodd" d="M0 .8C0 .358.32 0 .714 0h1.429c.394 0 .714.358.714.8v14.4c0 .442-.32.8-.714.8H.714a.678.678 0 0 1-.505-.234A.851.851 0 0 1 0 15.2V.8Zm7.143 0c0-.442.32-.8.714-.8h1.429c.19 0 .37.084.505.234.134.15.209.354.209.566v14.4c0 .442-.32.8-.714.8H7.857c-.394 0-.714-.358-.714-.8V.8Z" clip-rule="evenodd"/>
                     </svg>
@@ -46,7 +46,7 @@ const BottomPlayer = ({clickPlay=false,onClickPlay = () => null,onClickPause = (
                     <span class="sr-only">Pause video</span>
                 </button>
 :
-            <button onClick={()=>onClickPlay()} data-tooltip-target="tooltip-pause" type="button" class="inline-flex items-center justify-center p-2.5 mx-2 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+            <button onClick={()=>onClickPlay()} data-tooltip-target="tooltip-pause" type="button" class="inline-flex items-center justify-center p-2.5 mx-2 font-medium  bg-[#14b8a6] dark:bg-[#1e293b] text-white rounded-full  group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
            
             <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 16">
                 <path d="M0 .984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L1.506.139A1 1 0 0 0 0 .984Z"/>
@@ -88,7 +88,7 @@ const BottomPlayer = ({clickPlay=false,onClickPlay = () => null,onClickPause = (
             <div class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">3:45</span>
                 <div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-800">
-                    <div class="bg-blue-600 h-1.5 rounded-full"></div>
+                    <div class="bg-[#14b8a6] dark:bg-[#1e293b] h-1.5 rounded-full"></div>
                 </div>
                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">5:00</span>
             </div>

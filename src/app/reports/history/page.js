@@ -1,6 +1,7 @@
 
 "use client"
 
+import FloatDropdown from "@/components/float-dropdown";
 import dynamic from "next/dynamic";
 
 
@@ -9,15 +10,15 @@ const MapHistoryNoSSR = dynamic(() => import("../../../components/map-history"),
 });
 
 
+const History = () => {
 
-const History = ()=>{
+  return (
+    <>
 
-
-
-
-    return(
-        <MapHistoryNoSSR/>
-    )
+      <MapHistoryNoSSR />
+      <FloatDropdown />
+    </>
+  )
 }
 
 
