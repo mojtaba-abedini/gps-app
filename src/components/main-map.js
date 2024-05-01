@@ -200,7 +200,7 @@ const MainMap = () => {
             <MapContainer
               className={theme}
               center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
-              zoom={13}
+              zoom={17}
               scrollWheelZoom={true}
             >
 
