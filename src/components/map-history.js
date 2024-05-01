@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Map, { Marker, Source, Layer } from "react-map-gl";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+// import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
 import BottomPlayer from "./bottomPlayer";
@@ -10,15 +10,49 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from 'next/navigation'
 import { Card, CardBody } from "@nextui-org/react";
 
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+  useMap
+} from 'react-leaflet'
+
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
 
 
 import '@majidh1/jalalidatepicker';
 import '@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css'
 
-const MapHistory = () => {
+
+const zoom = 13
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function MapHistory() {
+
+
+
+
+
+  const [map, setMap] = useState(null)
+
   const [position, setPosition] = useState([])
   const [pointData, setPointData] = useState([])
-  const [dataOne, setDataOne] = useState({})
   const polyline = []
   const [play, setPlay] = useState(false)
   const [index, setIndex] = useState(0)
@@ -26,10 +60,15 @@ const MapHistory = () => {
   const [info, setInfo] = useState(null)
   const [valueFrom, setValueFrom] = useState("");
   const [valueTo, setValueTo] = useState("");
-
+  const limeOptions = { color: 'red' }
   const router = useRouter()
-
-
+  const mapRef = useRef();
+  const icon = L.icon({
+    iconUrl: "/images/marker-icon.png",
+    iconSize: [28, 46],
+    iconAnchor: [14, 46]
+  });
+  let path = []
   let timer;
 
   jalaliDatepicker.startWatch({
@@ -38,9 +77,11 @@ const MapHistory = () => {
 
   });
 
-  jalaliDatepicker.updateOptions({ time:true, hasSecond: false, persianDigits: true});
+  jalaliDatepicker.updateOptions({ time: true, hasSecond: false, persianDigits: true });
 
-  
+
+
+
   function jalali_to_gregorian(jy, jm, jd) {
     jy = Number(jy);
     jm = Number(jm);
@@ -84,14 +125,25 @@ const MapHistory = () => {
     setValueFrom(jalali_to_gregorian(dateFrom[0], dateFrom[1], dateFrom[2]).join("/") + " " + from.split(' ')[1])
     setValueTo(jalali_to_gregorian(dateTo[0], dateTo[1], dateTo[2]).join("/") + " " + to.split(' ')[1])
 
-    console.log(valueFrom);
-    console.log(valueTo);
-
     setPointData([])
     setPosition([])
-    setDataOne([])
+
 
   }
+
+
+
+
+
+  function SetViewMap({ map }) {
+
+    map.setView([position[1], position[0]])
+  }
+
+
+
+
+
 
 
 
@@ -103,14 +155,6 @@ const MapHistory = () => {
     if (pointData.length === 0 && info !== null) LoadData()
     if (pointData.length !== 0 && position.length === 0) setPosition([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000])
     if (pointData.length !== 0 && polyline.length === 0) getPolyline()
-    if (polyline.length !== 0) setDataOne({
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "LineString",
-        coordinates: polyline,
-      },
-    })
 
 
     if (play) {
@@ -118,7 +162,9 @@ const MapHistory = () => {
       timer = setInterval(() => {
         if (index < (polyline.length)) {
           setIndex(prevIndex => prevIndex + 1)
-          setPosition(polyline[index]);
+          setPosition([polyline[index][1], polyline[index][0]]);
+
+
         } else setPlay(false)
 
       }, speed);
@@ -126,7 +172,6 @@ const MapHistory = () => {
       return () => clearInterval(timer);
     }
 
-    console.log(pointData);
 
   }, [pointData, play, position, index])
 
@@ -135,8 +180,11 @@ const MapHistory = () => {
   function getPolyline() {
 
     pointData.map(item => {
-      polyline.push([(item.DataLongitude) / 10000000, (item.DataLatitude) / 10000000])
+      polyline.push([(item.DataLatitude) / 10000000, (item.DataLongitude) / 10000000])
     })
+
+    console.log(polyline);
+
 
   }
 
@@ -166,7 +214,7 @@ const MapHistory = () => {
       })
       .catch(function (error) {
         console.log(error);
-  
+
       });
   }
 
@@ -177,25 +225,25 @@ const MapHistory = () => {
     if (index !== 0) {
 
       setIndex(index - 1)
-      if (polyline[index] != undefined) setPosition(polyline[index])
+      if (polyline[index] != undefined) setPosition([polyline[index][1], polyline[index][0]])
     }
   }
   function clickForward() {
     getPolyline()
     if (index < (polyline.length) - 1) {
       setIndex(index + 1)
-      if (polyline[index] != undefined) setPosition(polyline[index])
+      if (polyline[index] != undefined) setPosition([polyline[index][1], polyline[index][0]])
     }
   }
 
 
-  
+
 
   const clickRefresh = () => {
     getPolyline()
     setIndex(0)
 
-    setPosition(polyline[index])
+    setPosition([polyline[index][1], polyline[index][0]])
   }
 
   const clickPause = () => {
@@ -206,6 +254,32 @@ const MapHistory = () => {
     setPlay(true)
 
   }
+
+
+
+  const displayMap = useMemo(
+    () => (
+      <MapContainer
+        center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
+        zoom={13}
+        scrollWheelZoom={true}
+        ref={setMap}>
+        <Polyline pathOptions={limeOptions} positions={polyline} />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
+
+        </Marker>
+      </MapContainer>
+    ),
+    [position],
+  )
+
+
+
+
 
   return (
     <>
@@ -314,11 +388,13 @@ const MapHistory = () => {
             </CardBody>
           </Card>
 
+
+
         </div>
 
 
 
-        <Map
+        {/* <Map
 
 
           mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
@@ -350,9 +426,10 @@ const MapHistory = () => {
           <Marker longitude={position[0]} latitude={position[1]}>
 
           </Marker>
-        </Map>
+        </Map> */}
 
-
+        {map ? <SetViewMap map={map} /> : null}
+        {displayMap}
 
 
 
