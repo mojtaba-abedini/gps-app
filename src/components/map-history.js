@@ -282,7 +282,7 @@ const theme = useTheme()
       {(position.length !== 0) ? <>
 
 
-        <div className="fixed  lg:pr-0 flex max-lg:top-0 max-lg:right-20 max-lg:right-20 lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-5 lg:top-5  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+        <div className="fixed  lg:pr-0 flex max-lg:top-0 max-lg:right-20  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-5 lg:top-5  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
 
           <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
             <CardBody>
