@@ -279,86 +279,72 @@ const theme = useTheme()
 
       <BottomPlayer clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
 
-      {(position.length !== 0) ? <>
+      {(position.length !== 0 ) ? <>
 
+{ pointData[index] !== undefined ? <div className="fixed  lg:pr-0 flex max-lg:top-0 max-lg:right-20  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-5 lg:top-5  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
 
-        <div className="fixed  lg:pr-0 flex max-lg:top-0 max-lg:right-20  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-5 lg:top-5  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+        <img className="mb-2" width={35} src="/images/time.png"/>
+      </div>
 
-          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
-            <CardBody>
-              <div className="grid grid-cols-1 items-center">
-                <div className="flex items-center justify-center">
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div className="flex items-center justify-center text-sm ">زمان</div>
-                <div className="flex items-center justify-center text-sm">{pointData[index].DataDeviceTime}</div>
-              </div>
-            </CardBody>
-          </Card>
+      <div className="flex items-center justify-center text-sm text-center">{(pointData[index].DataDeviceTime).split(".")[0]}</div>
+    </div>
+  </CardBody>
+</Card>
 
-          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
-            <CardBody>
-              <div className="grid grid-cols-1 items-center">
-                <div className="flex items-center justify-center">
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div className="flex items-center justify-center text-sm ">وضعیت خودرو</div>
-                <div className="flex items-center justify-center text-sm">{pointData[index].VehiclePower === "0" ? "بکسل" : "روشن"}</div>
-              </div>
-            </CardBody>
-          </Card>
-          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
-            <CardBody>
-              <div className="grid grid-cols-1 items-center">
-                <div className="flex items-center justify-center">
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div className="flex items-center justify-center text-sm ">طول جغرافیایی</div>
-                <div className="flex items-center justify-center text-sm">{pointData[index].DataLatitude / 10000000}</div>
-              </div>
-            </CardBody>
-          </Card>
-          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
-            <CardBody>
-              <div className="grid grid-cols-1 items-center">
-                <div className="flex items-center justify-center">
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div className="flex items-center justify-center text-sm ">عرض جغرافیایی</div>
-                <div className="flex items-center justify-center text-sm">{pointData[index].DataLongitude / 10000000}</div>
-              </div>
-            </CardBody>
-          </Card>
-          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
-            <CardBody>
-              <div className="grid grid-cols-1 items-center">
-                <div className="flex items-center justify-center">
-                  <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M12 8a1 1 0 0 0-1 1v10H9a1 1 0 1 0 0 2h11c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-8Zm4 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v6h6V9a3 3 0 0 1 3-3h8c.4 0 .7 0 1 .2V5a2 2 0 0 0-2-2H5Zm4 10H3v2c0 1.1.9 2 2 2h4v-4Z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div className="flex items-center justify-center text-sm ">سرعت خودرو</div>
-                <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
-              </div>
-            </CardBody>
-          </Card>
+{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+      <img className="mb-2" width={35} src="/images/key.png"/>
+      </div>
+    
+      <div className="flex items-center justify-center text-sm">{pointData[index].VehiclePower === "0" ? "بکسل" : "روشن"}</div>
+    </div>
+  </CardBody>
+</Card> */}
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+      <img className="mb-2" width={35} src="/images/speed.png"/>
+      </div>
+     
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
+    </div>
+  </CardBody>
+</Card>
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+      <img className="mb-2" width={35} src="/images/location-1.png"/>
+      </div>
+    
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataLatitude / 10000000}</div>
+    </div>
+  </CardBody>
+</Card>
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+  <CardBody>
+    <div className="grid grid-cols-1 items-center">
+      <div className="flex items-center justify-center">
+      <img className="mb-2" width={35} src="/images/location-2.png"/>
+      </div>
+      
+      <div className="flex items-center justify-center text-sm">{pointData[index].DataLongitude / 10000000}</div>
+    </div>
+  </CardBody>
+</Card>
 
 
 
-        </div>
+
+</div> : null}
+       
 
 
 
