@@ -34,12 +34,13 @@ const MapHistory = () => {
 
   jalaliDatepicker.startWatch({
     minDate: "attr",
-    maxDate: "attr"
+    maxDate: "attr",
+
   });
 
-  jalaliDatepicker.updateOptions({ time: true, hasSecond: false, persianDigits: true });
+  jalaliDatepicker.updateOptions({ time:true, hasSecond: false, persianDigits: true});
 
-
+  
   function jalali_to_gregorian(jy, jm, jd) {
     jy = Number(jy);
     jm = Number(jm);
@@ -165,7 +166,7 @@ const MapHistory = () => {
       })
       .catch(function (error) {
         console.log(error);
-        router.push("login")
+  
       });
   }
 
@@ -227,7 +228,7 @@ const MapHistory = () => {
               value={filters.to}
               onChange={(value) => setfilters({ ...filters, to: value })}
             /> */}
-            <Button onClick={SetDate} color="primary">
+            <Button onClick={SetDate} className="bg-[#14b8a6] dark:bg-[#1e293b] text-white">
               مشاهده مسیر
             </Button>
           </div>
@@ -239,7 +240,7 @@ const MapHistory = () => {
       {(position.length !== 0) ? <>
 
 
-        <div className="fixed  lg:pr-0 flex max-lg:bottom-42  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+        <div className="fixed  lg:pr-0 flex max-lg:bottom-48  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-10 lg:top-10  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
 
           <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
             <CardBody>

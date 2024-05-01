@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.dark .leaflet-layer,
 
+.leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.leaflet-control-zoom{
+  display: none;
+}
 
 @font-face {
   font-family: iranYekan;

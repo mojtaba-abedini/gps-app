@@ -1,11 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Map, { Marker, Source, Layer } from "react-map-gl";
+// import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
-import {useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
 
+} from 'react-leaflet'
+
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
 
 
 import "./mapStyle.css";
@@ -15,9 +25,16 @@ import { Card, CardBody } from "@nextui-org/react";
 import FloatingButton from "./floatingButton";
 import FloatingSideBar from "./floatingSideBar";
 import FloatDropdown from "./float-dropdown";
+import { useTheme } from "next-themes";
 
 
 const MainMap = () => {
+  const theme = useTheme()
+  const icon = L.icon({
+    iconUrl: "/images/marker-icon.png",
+    iconSize: [28, 46],
+    iconAnchor: [14, 46]
+  });
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [position, setPosition] = useState([])
@@ -26,7 +43,7 @@ const MainMap = () => {
   const router = useRouter()
 
   useEffect(() => {
-    
+
     const storage = localStorage.getItem("info")
     if (info === null) setInfo(JSON.parse(storage))
     if (info !== null) LoadData()
@@ -74,7 +91,7 @@ const MainMap = () => {
       {position[0] !== "" && position[0] ?
 
         <>
-          <div className="fixed lg:pr-0 flex max-lg:bottom-14  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:right-10 lg:top-10  w-full p-3 z-50 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+          <div className="fixed lg:pr-0 flex max-lg:bottom-14  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-5 lg:top-5  w-full p-3 z-50 gap-2 lg:gap-3 max-md:overflow-x-auto ">
 
             <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
               <CardBody>
@@ -179,47 +196,54 @@ const MainMap = () => {
 
 
           <div className="w-full">
-            <Map
-              mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
-              initialViewState={{
-                longitude: position[0],
-                latitude: position[1],
-                zoom: 14,
-                pitch: 40,
-              }}
-              mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
+
+            <MapContainer
+              className={theme}
+              center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
+              zoom={13}
+              scrollWheelZoom={true}
             >
 
-              <Marker longitude={position[0]} latitude={position[1]}>
-                {/* <img width={25} src="/images/marker-icon.png" /> */}
+
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
+
               </Marker>
-            </Map>
-            <FloatDropdown/>
+            </MapContainer>
+
+            <FloatDropdown />
           </div>
         </> :
-      <>
-        <Map
-          mapboxAccessToken="pk.eyJ1IjoibW9qdGFiYWFiZWRpbmkiLCJhIjoiY2xyN3k2ZXlxMmtpbzJrcDg0bWtweWpjeSJ9.GVno0k-LRh5KsiThR0LNDQ"
-          initialViewState={{
-            longitude: 51.404343,
-            latitude: 35.715298,
-            zoom: 10,
-            pitch: 40,
-          }}
-          mapStyle="mapbox://styles/mojtabaabedini/cl6570r2a000v14p3jocvm9g3"
-        >
-
-        </Map>
-
-        <FloatDropdown/>
+        <>
+          <MapContainer
+            className={theme}
+            center={position.length > 0 ? [35.715298, 51.404343] : [51.505, -0.09]}
+            zoom={13}
+            scrollWheelZoom={true}
+          >
 
 
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={position.length > 0 ? [35.715298, 51.404343] : [51.505, -0.09]} icon={icon}>
+
+            </Marker>
+          </MapContainer>
+
+          <FloatDropdown />
 
 
 
 
-     
-      </>
+
+
+
+        </>
       }
 
 
