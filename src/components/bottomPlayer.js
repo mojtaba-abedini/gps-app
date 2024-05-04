@@ -1,5 +1,5 @@
 "use client"
-const BottomPlayer = ({clickPlay=false,onClickPlay = () => null,onClickPause = () => null,onClickBackward=()=>null(),onClickForward=()=>null,onClickRefresh=()=>null})=>{
+const BottomPlayer = ({progress=0,clickPlay=false,onClickPlay = () => null,onClickPause = () => null,onClickBackward=()=>null(),onClickForward=()=>null,onClickRefresh=()=>null})=>{
 
 
 
@@ -86,11 +86,11 @@ const BottomPlayer = ({clickPlay=false,onClickPlay = () => null,onClickPause = (
                 </div>
             </div>
             <div class="flex items-center justify-between space-x-2 rtl:space-x-reverse">
-                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">3:45</span>
-                <div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-800">
-                    <div class="bg-[#14b8a6] dark:bg-[#1e293b] h-1.5 rounded-full"></div>
+                {/* <span class="text-sm font-medium text-gray-500 dark:text-gray-400">3:45</span> */}
+                <div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-800" style={{direction:'ltr'}}>
+                    <div class="bg-[#14b8a6] dark:bg-[#1e293b] h-1.5 rounded-full" style={{ width: `${progress}%` }}></div>
                 </div>
-                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">5:00</span>
+                {/* <span class="text-sm font-medium text-gray-500 dark:text-gray-400">5:00</span> */}
             </div>
         </div>
     </div>

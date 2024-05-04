@@ -40,6 +40,7 @@ const theme = useTheme()
   const [info, setInfo] = useState(null)
   const [valueFrom, setValueFrom] = useState("");
   const [valueTo, setValueTo] = useState("");
+  const [progress, setProgress] = useState(0);
   const limeOptions = { color: 'red' }
 
 
@@ -130,6 +131,7 @@ const theme = useTheme()
         if (index < (polyline.length)) {
           setIndex(prevIndex => prevIndex + 1)
           setPosition([polyline[index][1], polyline[index][0]]);
+          setProgress((index/polyline.length)*100)
 
 
         } else setPlay(false)
@@ -277,13 +279,13 @@ const theme = useTheme()
         </div>
       </div>
 
-      <BottomPlayer clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
+      <BottomPlayer progress={progress} clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
 
       {(position.length !== 0 ) ? <>
 
-{ pointData[index] !== undefined ? <div className="fixed  lg:pr-0 flex max-lg:top-0 max-lg:right-20  lg:grid grid-cols-2 lg:w-72  lg:absolute  lg:left-5 lg:top-5  w-full p-3 z-30 gap-2 lg:gap-3 max-md:overflow-x-auto ">
+{ pointData[index] !== undefined ? <div className="fixed left-0 grid grid-cols-1 gap-1 p-3 z-30">
 
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-32">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
