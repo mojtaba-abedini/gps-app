@@ -7,7 +7,7 @@ import '../globals.css'
 
 
 import BottomNavigation from "@/components/bottomNavigation";
-const Possibilities = () => {
+const Features = () => {
     const { systemTheme, theme, setTheme } = useTheme();
     const currentTheme = theme === 'system' ? systemTheme : theme;
     
@@ -18,7 +18,7 @@ const Possibilities = () => {
         <>
             <div className="h-screen flex items-center justify-center z-40">
     
-                <h1>Possibilities</h1>
+                <h1>Features</h1>
           
             </div>
 
@@ -29,4 +29,4 @@ const Possibilities = () => {
 }
 
 
-export default Possibilities;
+export default Features;
