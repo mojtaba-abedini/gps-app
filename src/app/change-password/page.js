@@ -42,8 +42,8 @@ const ChangePassword = () => {
     return (
         <>
        
-        <div className="flex lg:h-screen items-center justify-center">
-            <div className="grid grid-cols-1 gap-3 w-full md:w-1/4 px-5 mt-5 mb-20 z-50">
+        <div className="flex h-screen items-center justify-center">
+            <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:1/4 px-5 mt-5 mb-20 z-50">
 
                 <Input onChange={(e) => setOldPass(e.target.value)} variant="faded" type="text" label="رمز عبور فعلی را وارد کنید"/>
                 <Input onChange={(e) => setNewPass(e.target.value)} variant="faded" type="text" label="رمز عبور جدید را وارد کنید"/>

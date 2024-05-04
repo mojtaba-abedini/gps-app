@@ -36,7 +36,7 @@ const theme = useTheme()
   const [polyline, setPolyline] = useState(null)
   const [play, setPlay] = useState(false)
   const [index, setIndex] = useState(0)
-  const [speed, setSpeed] = useState(200)
+  const [speed, setSpeed] = useState(10)
   const [info, setInfo] = useState(null)
   const [valueFrom, setValueFrom] = useState("");
   const [valueTo, setValueTo] = useState("");
@@ -206,13 +206,21 @@ const theme = useTheme()
   }
 
 
-
-
   const clickRefresh = () => {
+   setIndex(0)
+  setPosition([polyline[0][1],polyline[0][0]])
 
-    setIndex(0)
-    setPosition([polyline[index][1], polyline[index][0]])
   }
+
+  const clickSpeedUp = () => {
+    if(speed >= 10)setSpeed(speed/2)
+
+  }
+  const clickSpeedDown = () => {
+   
+    setSpeed(speed*2)
+      }
+    
 
   const clickPause = () => {
     setPlay(false)
@@ -279,13 +287,13 @@ const theme = useTheme()
         </div>
       </div>
 
-      <BottomPlayer progress={progress} clickPlay={play} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickRefresh={() => { clickRefresh() }} />
+      <BottomPlayer progress={progress} clickPlay={play}  onClickRefresh={() => clickRefresh()} onClickPause={() => clickPause()}  onClickSpeedDown={() => { clickSpeedDown() }} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickSpeedUp={() => { clickSpeedUp() }} />
 
       {(position.length !== 0 ) ? <>
 
 { pointData[index] !== undefined ? <div className="fixed left-0 grid grid-cols-1 gap-1 p-3 z-30">
 
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -297,7 +305,7 @@ const theme = useTheme()
   </CardBody>
 </Card>
 
-{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -308,7 +316,7 @@ const theme = useTheme()
     </div>
   </CardBody>
 </Card> */}
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -319,7 +327,7 @@ const theme = useTheme()
     </div>
   </CardBody>
 </Card>
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -330,7 +338,7 @@ const theme = useTheme()
     </div>
   </CardBody>
 </Card>
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] min-w-24">
+<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -391,12 +399,12 @@ const theme = useTheme()
 
       </> :
 
-        valueFrom === "" && valueTo === "" ? <div role="status" className="flex items-center justify-center h-screen">
+        valueFrom === "" && valueTo === "" ? <div role="status" className="flex  items-center justify-center h-screen">
           <div>دیتایی وجود ندارد</div>
 
           <span class="sr-only">Loading...</span>
         </div> :
-          <div role="status" className="flex items-center justify-center h-screen">
+          <div role="status" className="flex items-center justify-center pb-36 h-screen">
 
             <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-[#14b8a6]" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />

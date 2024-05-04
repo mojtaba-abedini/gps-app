@@ -38,8 +38,8 @@ const ForgotVerification = () => {
 
 
     return (
-        <div className="flex lg:h-screen items-center justify-center">
-            <div className="grid grid-cols-1 gap-3 w-full md:w-1/4 px-5 mt-5 mb-20 z-50">
+        <div className="flex h-screen items-center justify-center">
+            <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:1/4 px-5 mt-5 mb-20 z-50">
 
                 <Input onChange={(e) => setMobile(e.target.value)} variant="faded" type="text" label="شماره تلفن همراه خود را وارد کنید" />
                 <Button onClick={Verify} isLoading={isLoading} className="bg-[#14b8a6] text-white">دریافت رمز یکبار مصرف</Button>

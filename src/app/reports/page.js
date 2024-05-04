@@ -19,9 +19,9 @@ const Reports = () => {
     return (
         <>
      
-            <div class="flex lg:h-screen items-center justify-center z-40">
+            <div class="flex h-screen items-center justify-center z-40">
 
-                <div className="grid grid-cols-1 gap-3 w-full md:w-1/4 px-5 mt-5 mb-20">
+                <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:1/4 px-5 mt-5 mb-20">
 
 
                     <Link href="/reports/history" className="bg-[#14b8a6] dark:bg-[#1e293b] text-white shadow-lg py-2.5 px-5 rounded-md text-md">
