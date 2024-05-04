@@ -16,7 +16,7 @@ const Possibilities = () => {
     return (
 
         <>
-            <div class="h-screen flex items-center justify-center z-40">
+            <div className="h-screen flex items-center justify-center z-40">
     
                 <h1>Possibilities</h1>
           

@@ -82,9 +82,9 @@ const LoginPage = () => {
 
   return (
     <>
-      {/* <div class="bg"></div>
-<div class="bg bg2"></div>
-<div class="bg bg3"></div> */}
+      {/* <div className="bg"></div>
+<div className="bg bg2"></div>
+<div className="bg bg3"></div> */}
       {/* <main className="bg-gray-10 dark:bg-black"> */}
       <main>
         <div className="flex items-center justify-center h-screen bg-white z-50">
