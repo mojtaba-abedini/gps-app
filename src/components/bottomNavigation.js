@@ -31,28 +31,28 @@ const BottomNavigation = ({active}) => {
                     {/* <svg class={active === 1 ? svgActive : svgNoActive} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9"/>
             </svg> */}
-                  <img className="mb-2" width={active===1 ? 30 : 23} src="/images/home.png" />
+                  <img className="mb-2" width={active===1 ? 28 : 23} src="/images/home.png" />
                         <span class={active === 1 ? textActive : textNoActive}>پیشخوان</span>
                     </button>
                     <button onClick={()=>{router.push('/possibilities', { scroll: false })}} type="button" class={active === 2 ? buttonActive : buttonNoActive}>
                     {/* <svg class={active === 2 ? svgActive : svgNoActive} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6.143 1H1.857A.857.857 0 0 0 1 1.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 7 6.143V1.857A.857.857 0 0 0 6.143 1Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 17 6.143V1.857A.857.857 0 0 0 16.143 1Zm-10 10H1.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 7 16.143v-4.286A.857.857 0 0 0 6.143 11Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/>
             </svg> */}
-             <img className="mb-2" width={active===2 ? 30 : 23} src="/images/feature.png" />
+             <img className="mb-2" width={active===2 ? 28 : 23} src="/images/feature.png" />
                         <span class={active === 2 ? textActive : textNoActive}>امکانات</span>
                     </button>
                     <button onClick={()=>{router.push('/setting', { scroll: false })}} type="button" class={active === 3 ? buttonActive : buttonNoActive}>
                         {/* <svg class={active === 3 ? svgActive : svgNoActive} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"/>
                         </svg> */}
-                          <img className="mb-2" width={active===3 ? 30 : 23} src="/images/setting.png" />
+                          <img className="mb-2" width={active===3 ? 28 : 23} src="/images/setting.png" />
                         <span class={active === 3 ? textActive : textNoActive}>تنظمیات</span>
                     </button>
                     <button onClick={()=>{router.push('/reports', { scroll: false })}}  type="button" class={active === 4 ? buttonActive : buttonNoActive}>
                     {/* <svg class={active === 4 ? svgActive : svgNoActive} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1v14h16M4 10l3-4 4 4 5-5m0 0h-3.207M16 5v3.207"/>
             </svg> */}
-            <img className="mb-2" width={active===4 ? 30 : 23} src="/images/report.png" />
+            <img className="mb-2" width={active===4 ? 28 : 23} src="/images/report.png" />
                         <span class={active === 4 ? textActive : textNoActive}>گزارشات</span>
                     </button>
                 </div>
