@@ -21,7 +21,7 @@ const FloatDropdown = () => {
     const [device, setDevice] = useState(null)
     const [info, setInfo] = useState(null)
     const [deviceId, setDeviceId] = useState(null)
-    const [selectedName,setSelectedName]=useState("")
+    const [selectedName, setSelectedName] = useState("")
 
     useEffect(() => {
 
@@ -31,9 +31,9 @@ const FloatDropdown = () => {
         if (info === null) setInfo(JSON.parse(storage))
         if (device === null && info !== null) LoadDevice()
         if (deviceId === null && info !== null) setDeviceId(localStorage.getItem("deviceId"))
-        if (name !== null ) setSelectedName(name)
+        if (name !== null) setSelectedName(name)
 
-    }, [info, device,selectedName])
+    }, [info, device, selectedName])
 
 
     function ChangeDevice(item) {
@@ -58,7 +58,7 @@ const FloatDropdown = () => {
         };
         axios(config)
             .then(function (response) {
-         
+
                 setDevice(response.data.devices)
 
             })
@@ -83,28 +83,40 @@ const FloatDropdown = () => {
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
                     <DropdownItem key="profile" className="h-12 gap-2">
-                      
+
                         <p className="font-semibold">{selectedName !== "" ? selectedName : "دستگاهی انتخاب نشده"}</p>
                     </DropdownItem>
                     <DropdownItem key="home" onClick={() => router.push("/")}>
-                      پیشخوان
+                        <div className="flex gap-2">
+                            <img className="mb-2" width={20} src="/images/home.png" />
+
+                            <div>پیشخوان</div></div>
                     </DropdownItem>
                     <DropdownItem key="change-device" onClick={() => setIsOpenDevice(!isOpenDevice)}>
-                        تغییر دستگاه
+                        <div className="flex gap-2">
+                            <img className="mb-2" width={20} src="/images/car.png" />
+
+                            <div>تغییر دستگاه</div></div>
                     </DropdownItem>
-                    <DropdownItem key="change-password" onClick={()=>router.push("/change-password")}>
-                        تغییر رمز ورود
+                    <DropdownItem key="change-password" onClick={() => router.push("/change-password")}>
+                        <div className="flex gap-2">
+                            <img className="mb-2" width={20} src="/images/password.png" />
+
+                            <div>تغییر رمز عبور</div></div>
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onClick={() => setIsOpen(true)}>
-                        خروج از حساب کاربری
+                        <div className="flex gap-2">
+                            <img className="mb-2" width={20} src="/images/exit.png" />
+
+                            <div>خروج از حساب کاربری</div></div>
                     </DropdownItem>
                 </DropdownMenu>
             </Dropdown>
 
 
 
-            <Modal className="p-5" isOpen={isOpen} hideCloseButton={true} placement="center">
-                <ModalContent>
+            <Modal className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
+                <ModalContent className="max-sm:pb-28">
                     <>
                         <ModalBody>
                             <h1>آیا مایل به خروج از نرم افزار هستید؟</h1>
@@ -129,11 +141,11 @@ const FloatDropdown = () => {
                 </ModalContent>
             </Modal>
 
-            <Modal className="p-3" isOpen={isOpenDevice} hideCloseButton={true} placement="center">
+            <Modal className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
 
 
 
-                <ModalContent>
+                <ModalContent className="max-sm:pb-28">
                     <>
 
                         <Button onClick={() => setIsOpenDevice(false)} variant="light" isIconOnly >
@@ -143,12 +155,12 @@ const FloatDropdown = () => {
                         </Button>
 
 
-                        <ModalBody className="grid grid-cols-2 mb-36 md:mb-5">
+                        <ModalBody className="grid grid-cols-2 md:mb-5">
                             {device !== null ? device.map((item, index) => (
-                                <Card shadow="sm" key={index} isPressable onPress={() => ChangeDevice(item)}>
+                                <Card className="p-2" shadow="sm" key={index} isPressable onPress={() => ChangeDevice(item)}>
                                     <CardBody className="text-small justify-between">
                                         <b className="text-center">{item.DeviceName}</b>
-                                        <p className="text-default-500 text-center">{item.DeviceId}</p>
+                                        <p className="text-default-500 text-center mt-2 text-md">{`IMEI : ${item.DeviceIMEI}`}</p>
                                     </CardBody>
                                 </Card>
                             )) : null}

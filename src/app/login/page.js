@@ -88,8 +88,8 @@ const LoginPage = () => {
       {/* <main className="bg-gray-10 dark:bg-black"> */}
       <main>
         <div className="flex items-center justify-center h-screen bg-white z-50">
-          <Modal isOpen={true} hideCloseButton={true} placement="center">
-            <ModalContent>
+          <Modal isOpen={true} hideCloseButton={true} placement="bottom-center">
+            <ModalContent className="max-sm:pb-28">
               <>
                 <ModalHeader className="flex flex-col gap-1">
                   <div className="w-48 mb-2">
