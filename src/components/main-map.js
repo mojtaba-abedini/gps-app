@@ -40,6 +40,7 @@ const MainMap = () => {
   const [position, setPosition] = useState([])
   const [data, setData] = useState({})
   const [info, setInfo] = useState(null)
+  const [status, setStatus] = useState("")
   const router = useRouter()
 
   useEffect(() => {
@@ -51,13 +52,10 @@ const MainMap = () => {
 
 
 
+
   function LoadData() {
-
-
-
     var data = JSON.stringify({
       imei: "350317174465199",
-
     });
 
     const config = {
@@ -73,7 +71,10 @@ const MainMap = () => {
       .then(function (response) {
 
         setData(response.data)
-
+        if (response.data.VehiclePower == "True" && parseInt(response.data.DataSpeed) > 0) setStatus("در حال حرکت")
+        if (response.data.VehiclePower == "True" && parseInt(response.data.DataSpeed) === 0) setStatus("کارکرد درجا")
+        if (response.data.VehiclePower == "False" && parseInt(response.data.DataSpeed) > 0) setStatus("بکسل")
+        if (response.data.VehiclePower == "False" && parseInt(response.data.DataSpeed) === 0) setStatus("پارک")
         setPosition([response.data.DataLong / 10000000, response.data.DataLat / 10000000])
       })
       .catch(function (error) {
@@ -97,9 +98,9 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/time.png"/>
+                    <img className="mb-2" width={35} src="/images/time.png" />
                   </div>
-               
+
                   <div className="flex items-center justify-center text-sm">{data._DataTimeStamp}</div>
                 </div>
               </CardBody>
@@ -109,10 +110,10 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/key.png"/>
+                    <img className="mb-2" width={35} src="/images/key.png" />
                   </div>
-                  
-                  <div className="flex items-center justify-center text-sm">{data.VehiclePower === "0" ? "خاموش" : "روشن"}</div>
+
+                  <div className="flex items-center justify-center text-sm">{status}</div>
                 </div>
               </CardBody>
             </Card>
@@ -120,9 +121,9 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/height.png"/>
+                    <img className="mb-2" width={35} src="/images/height.png" />
                   </div>
-            
+
                   <div className="flex items-center justify-center text-sm">{data.DataAlt}</div>
                 </div>
               </CardBody>
@@ -131,9 +132,9 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/angle.png"/>
+                    <img className="mb-2" width={35} src="/images/angle.png" />
                   </div>
-                 
+
                   <div className="flex items-center justify-center text-sm">{data.DataAngle}</div>
                 </div>
               </CardBody>
@@ -142,9 +143,9 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/speed.png"/>
+                    <img className="mb-2" width={35} src="/images/speed.png" />
                   </div>
-                
+
                   <div className="flex items-center justify-center text-sm">{data.DataSpeed}</div>
                 </div>
               </CardBody>
@@ -153,9 +154,9 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/gps.png"/>
+                    <img className="mb-2" width={35} src="/images/gps.png" />
                   </div>
-               
+
                   <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
                 </div>
               </CardBody>
@@ -164,9 +165,9 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/voltage.png"/>
+                    <img className="mb-2" width={35} src="/images/voltage.png" />
                   </div>
-               
+
                   <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
                 </div>
               </CardBody>

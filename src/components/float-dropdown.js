@@ -58,7 +58,7 @@ const FloatDropdown = () => {
         };
         axios(config)
             .then(function (response) {
-                console.log(response.data.devices);
+         
                 setDevice(response.data.devices)
 
             })

@@ -41,7 +41,7 @@ const Register = () => {
 
     return (
         <div className="flex h-screen items-center justify-center">
-            <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:1/4 px-5 mt-5 mb-20 z-50">
+            <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:w-1/4 px-5 mt-5 mb-20 z-50">
 
                 <Input onChange={(e) => setCode(e.target.value)} variant="faded" type="text" label="کد ارسال شده را وارد کنید"/>
                 <Input onChange={(e) => setPassword(e.target.value)} variant="faded" type="text" label="رمز عبور را وارد کنید"/>

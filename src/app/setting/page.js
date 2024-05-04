@@ -15,20 +15,25 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import FloatDropdown from '@/components/float-dropdown';
 const Setting = () => {
     const { theme, setTheme } = useTheme();
-    const [notification, setNotification] = useState(true)
+    const [notification, setNotification] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
     const router = useRouter()
 
+
+    useEffect(()=>{
+      
+    },[notification])
+
     return (
         <>
-            <div class="flex h-screen items-center justify-center z-40">
+            <div class="flex lg:h-screen items-center justify-center z-40">
 
-                <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:1/4 px-5 mt-5 mb-20">
+                <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:w-1/4 px-5 mt-5 mb-20">
 
 
                     <Link href="/setting/add-device" className="bg-[#14b8a6] dark:bg-[#1e293b] text-white shadow-lg py-2.5 px-5 rounded-md text-md">
@@ -50,13 +55,13 @@ const Setting = () => {
                                 <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 8H4m8 3.5v5M9.5 14h5M4 6v13c0 .6.4 1 1 1h14c.6 0 1-.4 1-1V9c0-.6-.4-1-1-1h-5a1 1 0 0 1-.8-.4l-1.9-2.2a1 1 0 0 0-.8-.4H5a1 1 0 0 0-1 1Z" />
                                 </svg>
-                                <div className="mr-2 flex items-center justify-center">حالت شب</div>
+                                <div className="mr-2 flex items-center justify-center">تم نرم افزار</div>
                             </div>
-                            <div className="flex text-sm justify-center items-center">{theme == "light" ? "غیر فعال" : "فعال"}</div>
+                            <div className="flex text-sm justify-center items-center">{theme === "light" ? "روشن" : "تیره"}</div>
                         </div>
                     </Link>
 
-                    <Link onClick={() => notification == true ? setNotification(false) : setNotification(true)} href="#" className=" text-md bg-[#14b8a6] dark:bg-[#1e293b] text-white shadow-lg py-2.5 px-5 rounded-md">
+                    <Link onClick={()=>{setNotification(!notification);localStorage.setItem("notification",!notification)}} href="#" className={`text-md ${notification === true  ? "bg-[#14b8a6] dark:bg-[#1e293b]" : "bg-orange-400 dark:bg-orange-400"} text-white shadow-lg py-2.5 px-5 rounded-md`}>
                         <div className="flex justify-between">
                             <div className="flex">
                                 <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -64,7 +69,7 @@ const Setting = () => {
                                 </svg>
                                 <div className="mr-2 flex items-center justify-center">اعلان ها</div>
                             </div>
-                            <div className="flex text-sm justify-center items-center">{notification == true ? "غیر فعال" : "فعال"}</div>
+                            <div className="flex text-sm justify-center items-center">{notification === true ? "فعال" : "غیر فعال"}</div>
                         </div>
                     </Link>
                     <Link href="/setting/subscription" className="bg-[#14b8a6] dark:bg-[#1e293b] text-white shadow-lg py-2.5 px-5 rounded-md  text-md">

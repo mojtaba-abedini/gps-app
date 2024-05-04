@@ -30,13 +30,13 @@ import { useTheme } from "next-themes";
 function MapHistory() {
 
   const [map, setMap] = useState(null)
-const theme = useTheme()
+  const theme = useTheme()
   const [position, setPosition] = useState([])
   const [pointData, setPointData] = useState([])
   const [polyline, setPolyline] = useState(null)
   const [play, setPlay] = useState(false)
   const [index, setIndex] = useState(0)
-  const [speed, setSpeed] = useState(10)
+  const [speed, setSpeed] = useState(100)
   const [info, setInfo] = useState(null)
   const [valueFrom, setValueFrom] = useState("");
   const [valueTo, setValueTo] = useState("");
@@ -131,7 +131,7 @@ const theme = useTheme()
         if (index < (polyline.length)) {
           setIndex(prevIndex => prevIndex + 1)
           setPosition([polyline[index][1], polyline[index][0]]);
-          setProgress((index/polyline.length)*100)
+          setProgress((index / polyline.length) * 100)
 
 
         } else setPlay(false)
@@ -207,20 +207,21 @@ const theme = useTheme()
 
 
   const clickRefresh = () => {
-   setIndex(0)
-  setPosition([polyline[0][1],polyline[0][0]])
+    setIndex(0)
+    setProgress(0)
+    setPosition([polyline[0][1], polyline[0][0]])
 
   }
 
   const clickSpeedUp = () => {
-    if(speed >= 10)setSpeed(speed/2)
+    if (speed >= 10) setSpeed(speed / 2)
 
   }
   const clickSpeedDown = () => {
-   
-    setSpeed(speed*2)
-      }
-    
+
+    setSpeed(speed * 2)
+  }
+
 
   const clickPause = () => {
     setPlay(false)
@@ -232,11 +233,21 @@ const theme = useTheme()
   }
 
 
+  const ChangeSpeed = () => {
+    console.log(speed);
+    if (speed <= 90) setSpeed(speed + 10)
+    else {
+      setSpeed(10)
+    }
+
+  }
+
+
 
   const displayMap = useMemo(
     () => (
       <MapContainer
-      className={theme}
+        className={theme}
         center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
         zoom={13}
         scrollWheelZoom={true}
@@ -287,25 +298,25 @@ const theme = useTheme()
         </div>
       </div>
 
-      <BottomPlayer progress={progress} clickPlay={play}  onClickRefresh={() => clickRefresh()} onClickPause={() => clickPause()}  onClickSpeedDown={() => { clickSpeedDown() }} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickSpeedUp={() => { clickSpeedUp() }} />
+      <BottomPlayer speed={speed} progress={progress} clickPlay={play} onClickRefresh={() => clickRefresh()} onClickPause={() => clickPause()} onClickPlay={() => clickPlay()} onClickBackward={() => clickBackward()} onClickForward={() => clickForward()} onClickChangeSpeed={() => { ChangeSpeed() }} />
 
-      {(position.length !== 0 ) ? <>
+      {(position.length !== 0) ? <>
 
-{ pointData[index] !== undefined ? <div className="fixed left-0 grid grid-cols-1 gap-1 p-3 z-30">
+        {pointData[index] !== undefined ? <div className="fixed left-0 grid grid-cols-1 gap-1 p-3 z-30">
 
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
-  <CardBody>
-    <div className="grid grid-cols-1 items-center">
-      <div className="flex items-center justify-center">
-        <img className="mb-2" width={35} src="/images/time.png"/>
-      </div>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <img className="mb-2" width={35} src="/images/time.png" />
+                </div>
 
-      <div className="flex items-center justify-center text-sm text-center">{(pointData[index].DataDeviceTime).split(".")[0]}</div>
-    </div>
-  </CardBody>
-</Card>
+                <div className="flex items-center justify-center text-sm text-center">{(pointData[index].DataDeviceTime).split(".")[0]}</div>
+              </div>
+            </CardBody>
+          </Card>
 
-{/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
+          {/* <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
   <CardBody>
     <div className="grid grid-cols-1 items-center">
       <div className="flex items-center justify-center">
@@ -316,45 +327,45 @@ const theme = useTheme()
     </div>
   </CardBody>
 </Card> */}
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
-  <CardBody>
-    <div className="grid grid-cols-1 items-center">
-      <div className="flex items-center justify-center">
-      <img className="mb-2" width={35} src="/images/speed.png"/>
-      </div>
-     
-      <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
-    </div>
-  </CardBody>
-</Card>
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
-  <CardBody>
-    <div className="grid grid-cols-1 items-center">
-      <div className="flex items-center justify-center">
-      <img className="mb-2" width={35} src="/images/location-1.png"/>
-      </div>
-    
-      <div className="flex items-center justify-center text-sm">{pointData[index].DataLatitude / 10000000}</div>
-    </div>
-  </CardBody>
-</Card>
-<Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
-  <CardBody>
-    <div className="grid grid-cols-1 items-center">
-      <div className="flex items-center justify-center">
-      <img className="mb-2" width={35} src="/images/location-2.png"/>
-      </div>
-      
-      <div className="flex items-center justify-center text-sm">{pointData[index].DataLongitude / 10000000}</div>
-    </div>
-  </CardBody>
-</Card>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <img className="mb-2" width={35} src="/images/speed.png" />
+                </div>
+
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
+              </div>
+            </CardBody>
+          </Card>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <img className="mb-2" width={35} src="/images/location-1.png" />
+                </div>
+
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataLatitude / 10000000}</div>
+              </div>
+            </CardBody>
+          </Card>
+          <Card className="shadow-lg rounded-lg dark:bg-[#1e293b] w-24">
+            <CardBody>
+              <div className="grid grid-cols-1 items-center">
+                <div className="flex items-center justify-center">
+                  <img className="mb-2" width={35} src="/images/location-2.png" />
+                </div>
+
+                <div className="flex items-center justify-center text-sm">{pointData[index].DataLongitude / 10000000}</div>
+              </div>
+            </CardBody>
+          </Card>
 
 
 
 
-</div> : null}
-       
+        </div> : null}
+
 
 
 
