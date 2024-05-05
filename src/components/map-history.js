@@ -6,10 +6,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import BottomPlayer from "./bottomPlayer";
 import "./mapStyle.css";
 import { Button } from "@nextui-org/react";
-
+import TimePicker from "react-multi-date-picker/plugins/time_picker"
+import persian from "react-date-object/calendars/persian"
+import "react-multi-date-picker/styles/colors/teal.css"
+import persian_fa from "react-date-object/locales/persian_fa"
+import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 // import { useRouter } from 'next/navigation'
 import { Card, CardBody } from "@nextui-org/react";
-
+import DatePicker, { DateObject } from "react-multi-date-picker"
 import {
   MapContainer,
   TileLayer,
@@ -26,6 +30,7 @@ import '@majidh1/jalalidatepicker';
 import '@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css'
 import { useTheme } from "next-themes";
 import animationData from './no-data.json'
+import moment from "jalali-moment";
 
 function MapHistory() {
 
@@ -40,6 +45,8 @@ function MapHistory() {
   const [info, setInfo] = useState(null)
   const [valueFrom, setValueFrom] = useState("");
   const [valueTo, setValueTo] = useState("");
+  const [valueFromPersian, setValueFromPersian] = useState("");
+  const [valueToPersian, setValueToPersian] = useState("");
   const [progress, setProgress] = useState(0);
   const limeOptions = { color: 'red' }
 
@@ -52,57 +59,11 @@ function MapHistory() {
 
   let timer;
 
-  jalaliDatepicker.startWatch({
-    minDate: "attr",
-    maxDate: "attr",
-
-  });
-
-  jalaliDatepicker.updateOptions({ time: true, hasSecond: false, persianDigits: true });
-
-
-  function jalali_to_gregorian(jy, jm, jd) {
-    jy = Number(jy);
-    jm = Number(jm);
-    jd = Number(jd);
-    var gy = (jy <= 979) ? 621 : 1600;
-    jy -= (jy <= 979) ? 0 : 979;
-    var days = (365 * jy) + ((parseInt(jy / 33)) * 8) + (parseInt(((jy % 33) + 3) / 4))
-      + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
-    gy += 400 * (parseInt(days / 146097));
-    days %= 146097;
-    if (days > 36524) {
-      gy += 100 * (parseInt(--days / 36524));
-      days %= 36524;
-      if (days >= 365) days++;
-    }
-    gy += 4 * (parseInt((days) / 1461));
-    days %= 1461;
-    gy += parseInt((days - 1) / 365);
-    if (days > 365) days = (days - 1) % 365;
-    var gd = days + 1;
-    var sal_a = [0, 31, ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    var gm
-    for (gm = 0; gm < 13; gm++) {
-      var v = sal_a[gm];
-      if (gd <= v) break;
-      gd -= v;
-    }
-    return [gy, gm, gd];
-  }
-
 
 
   function SetDate() {
 
-    const from = document.getElementById("date-from").value
-    var dateFrom = from.split(' ')[0].split("/");
 
-    const to = document.getElementById("date-to").value
-    var dateTo = to.split(' ')[0].split("/");
-
-    setValueFrom(jalali_to_gregorian(dateFrom[0], dateFrom[1], dateFrom[2]).join("/") + " " + from.split(' ')[1])
-    setValueTo(jalali_to_gregorian(dateTo[0], dateTo[1], dateTo[2]).join("/") + " " + to.split(' ')[1])
 
     setPointData([])
     setPosition([])
@@ -213,14 +174,6 @@ function MapHistory() {
 
   }
 
-  const clickSpeedUp = () => {
-    if (speed >= 10) setSpeed(speed / 2)
-
-  }
-  const clickSpeedDown = () => {
-
-    setSpeed(speed * 2)
-  }
 
 
   const clickPause = () => {
@@ -242,9 +195,32 @@ function MapHistory() {
 
   }
 
+
+  function SetFromDate(e){
+
+    const time = e.hour+":"+e.minute+":"+e.second
+    const persianDate = e.year+"/"+e.month.number+"/"+e.day;
+    setValueFromPersian(persianDate)
+    const georgianDate = moment.from(persianDate, 'fa', 'YYYY/MM/DD').format('YYYY/MM/DD')
+
+    setValueFrom(georgianDate + " "+time);
+  }
+
+
+  function SetToDate(e){
+    const time = e.hour+":"+e.minute+":"+e.second
+    const persianDate = e.year+"/"+e.month.number+"/"+e.day;
+    setValueToPersian(persianDate)
+    const georgianDate = moment.from(persianDate, 'fa', 'YYYY/MM/DD').format('YYYY/MM/DD')
+
+    setValueTo(georgianDate + " "+time);
+  }
+
+
+
   const defaultOptions = {
     loop: true,
-    autoplay: true, 
+    autoplay: true,
     animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
@@ -282,8 +258,31 @@ function MapHistory() {
       <div className="fixed bottom-32 mb-2 w-full z-20">
         <div className="w-full flex items-center justify-center p-3">
           <div className="grid  grid-cols-3 gap-2">
-            <input className="text-md rounded-lg py-1.5 px-3 w-full form-control" id="date-from" data-jdp data-jdp-miladi-input="miladi_date" type="text" placeholder="تاریخ را وارد کنید" />
-            <input className="text-md rounded-lg py-1.5 px-3 w-full form-control" id="date-to" data-jdp data-jdp-miladi-input="miladi_date" type="text" placeholder="تاریخ را وارد کنید" />
+            <DatePicker
+           
+              className="bg-dark"
+              calendar={persian}
+              locale={persian_fa}
+              value={valueFromPersian}
+              onChange={(e)=>SetFromDate(e)}
+              format={"YYYY/MM/DD"}
+              plugins={[
+                <TimePicker position="bottom" />
+              ]}
+
+            />
+            <DatePicker
+              className="bg-dark"
+              calendar={persian}
+              locale={persian_fa}
+              value={valueToPersian}
+              onChange={(e)=>SetToDate(e)}
+
+              plugins={[
+                <TimePicker position="bottom" />
+              ]}
+
+            />
             {/* <DatePicker
              
               isGregorian={false}
@@ -418,10 +417,10 @@ function MapHistory() {
       </> :
 
         valueFrom === "" && valueTo === "" ? <div role="status" className="flex pb-28  items-center justify-center h-screen">
-           <Lottie className="p-10" options={defaultOptions}
-              height={320}
-              width={450}
-            />
+          <Lottie className="p-10" options={defaultOptions}
+            height={280}
+            width={380}
+          />
 
           <span className="sr-only">Loading...</span>
         </div> :
