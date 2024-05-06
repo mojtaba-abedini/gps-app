@@ -19,7 +19,7 @@ const Verification = () => {
         });
         var config = {
             method: "post",
-            url: "/verification",
+            url: "/send_otp_register",
             headers: {
                 "Content-Type": "application/json",
             },

@@ -168,7 +168,7 @@ const MainMap = () => {
                     <img className="mb-2" width={35} src="/images/voltage.png" />
                   </div>
 
-                  <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
+                  <div className="flex items-center justify-center text-sm">{data.DataDeviceBatteryVoltage}</div>
                 </div>
               </CardBody>
             </Card>

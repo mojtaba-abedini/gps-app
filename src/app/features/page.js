@@ -14,7 +14,7 @@ import { useState } from "react";
 const Features = () => {
     const { systemTheme, theme, setTheme } = useTheme();
     const currentTheme = theme === 'system' ? systemTheme : theme;
-    let [value, setValue] = useState(new Date())
+
 
 
     return (
@@ -22,18 +22,7 @@ const Features = () => {
         <>
             <div className="h-screen flex items-center justify-center z-40">
 
-                <DatePicker
-  className="bg-dark"
-                    calendar={persian}
-                    locale={persian_fa}
-                    value={value}
-                    onChange={setValue}
-
-                    plugins={[
-                        <TimePicker position="bottom" />
-                      ]}
-
-                />
+             <div>Features</div>
 
             </div>
 
