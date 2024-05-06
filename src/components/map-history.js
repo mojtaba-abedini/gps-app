@@ -37,8 +37,10 @@ import { useRouter } from "next/navigation";
 
 function MapHistory() {
 
-  const [start,setStart]=useState(null)
-  const [end,setEnd]=useState(null)
+  const [width, setWidth] = useState()
+
+  const [start, setStart] = useState(null)
+  const [end, setEnd] = useState(null)
   const [map, setMap] = useState(null)
   const theme = useTheme()
   const [position, setPosition] = useState([])
@@ -53,9 +55,9 @@ function MapHistory() {
   const [valueFromPersian, setValueFromPersian] = useState();
   const [valueToPersian, setValueToPersian] = useState();
   const [progress, setProgress] = useState(0);
-  const limeOptions = { color: '#009688' ,  weight : 5}
+  const limeOptions = { color: '#009688', weight: 5 }
   const [isLoding, setisLoading] = useState(false)
-const router = useRouter() 
+  const router = useRouter()
   const icon = L.icon({
     iconUrl: "/images/marker-icon.png",
     iconSize: [28, 46],
@@ -67,15 +69,12 @@ const router = useRouter()
 
 
   function SetDate() {
-    
+
     setPointData([])
-setPolyline(null)
+    setPolyline(null)
     setPosition([])
- 
 
-   
   }
-
 
 
   function SetViewMap({ map }) {
@@ -83,10 +82,18 @@ setPolyline(null)
   }
 
 
+  function handleResize() {
+    setWidth(window.innerWidth)
+  }
 
   useEffect(() => {
+
+
+    window.addEventListener('resize', handleResize)
+
+
     const storage = localStorage.getItem("info")
-    if(storage === null) router.push('/login')
+    if (storage === null) router.push('/login')
 
     if (info === null) setInfo(JSON.parse(storage))
 
@@ -94,7 +101,7 @@ setPolyline(null)
     if (pointData.length !== 0 && position.length === 0) {
       setPosition([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000]);
       setStart([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000]);
-      setEnd([(pointData[pointData.length-1].DataLongitude) / 10000000, (pointData[pointData.length-1].DataLatitude) / 10000000])
+      setEnd([(pointData[pointData.length - 1].DataLongitude) / 10000000, (pointData[pointData.length - 1].DataLatitude) / 10000000])
     }
     if (pointData.length !== 0 && polyline === null) getPolyline()
 
@@ -106,13 +113,13 @@ setPolyline(null)
           setPosition([polyline[index][1], polyline[index][0]]);
           setProgress((index / polyline.length) * 100)
         } else setPlay(false)
-      }, 500/speed);
+      }, 500 / speed);
 
       return () => clearInterval(timer);
     }
 
 
-  }, [pointData, play, position, index,polyline,start,end])
+  }, [pointData, play, position, index, polyline, start, end, width])
 
 
 
@@ -221,7 +228,7 @@ setPolyline(null)
 
   function SetToDate(e) {
     let time = e.hour + ":" + e.minute + ":" + e.second
-    if(time === "0:0:0") time = "23:59:59"
+    if (time === "0:0:0") time = "23:59:59"
     const persianDate = e.year + "/" + e.month.number + "/" + e.day;
     setValueToPersian(persianDate)
     const georgianDate = moment.from(persianDate, 'fa', 'YYYY/MM/DD').format('YYYY/MM/DD')
@@ -256,10 +263,10 @@ setPolyline(null)
         />
         <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
         </Marker>
-        <Marker position={start !== null ?  [start[1], start[0]] : null} icon={icon}>
+        <Marker position={start !== null ? [start[1], start[0]] : null} icon={icon}>
           <Popup><div className="text-red-500">شروع</div></Popup>
         </Marker>
-        <Marker position={end !== null ?  [end[1], end[0]] : null} icon={icon}>
+        <Marker position={end !== null ? [end[1], end[0]] : null} icon={icon}>
         </Marker>
 
 
@@ -302,7 +309,7 @@ setPolyline(null)
               ]}
 
             />
-    
+
             <Button onClick={SetDate} className="bg-[#14b8a6] dark:bg-[#1e293b] text-white">
               مشاهده مسیر
             </Button>
@@ -384,8 +391,9 @@ setPolyline(null)
 
         <div role="status" className="flex pb-28  items-center justify-center h-screen">
           <Lottie className="p-10" options={defaultOptions}
-            height={280}
-            width={380}
+
+            height={(width - 1200) / 1.4}
+            width={width - 1200}
           />
 
           <span className="sr-only">Loading...</span>
