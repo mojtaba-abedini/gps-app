@@ -55,7 +55,9 @@
   right: 10px;
 
 }
-
+.truncate {
+  text-align: right;
+}
 .rc-time-picker-panel-select li {
   text-align: center !important;
 

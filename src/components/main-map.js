@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -36,19 +36,32 @@ const MainMap = () => {
     iconAnchor: [14, 46]
   });
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const [position, setPosition] = useState([])
   const [data, setData] = useState({})
   const [info, setInfo] = useState(null)
   const [status, setStatus] = useState("")
-  const router = useRouter()
 
+  const [map, setMap] = useState(null)
   useEffect(() => {
 
     const storage = localStorage.getItem("info")
     if (info === null) setInfo(JSON.parse(storage))
     if (info !== null) LoadData()
-  }, [info])
+
+
+    if (status === "در حال حرکت") {
+      var timer = setInterval(() => {
+        LoadData()
+      }, 10000);
+
+      return () => clearInterval(timer);
+    }
+
+
+
+
+  }, [info,status])
 
 
 
@@ -83,6 +96,34 @@ const MainMap = () => {
       });
   }
 
+  function SetViewMap({ map }) {
+    map.setView([position[1], position[0]])
+  }
+
+  const displayMap = useMemo(
+    () => (
+      <MapContainer
+      
+        center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
+        zoom={16}
+        scrollWheelZoom={true}
+        ref={setMap}>
+       
+
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
+        </Marker>
+        
+
+
+      </MapContainer>
+    ),
+    [position],
+  )
+
 
 
 
@@ -113,7 +154,7 @@ const MainMap = () => {
                     <img className="mb-2" width={35} src="/images/key.png" />
                   </div>
 
-                  <div className="flex items-center justify-center text-sm">{status}</div>
+                  <div className="flex items-center justify-center text-sm">{data.VehiclePower === "True" ? "روشن" : "خاموش"}</div>
                 </div>
               </CardBody>
             </Card>
@@ -177,22 +218,9 @@ const MainMap = () => {
 
           <div className="w-full">
 
-            <MapContainer
-              className={theme}
-              center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
-              zoom={17}
-              scrollWheelZoom={true}
-            >
+          {map ? <SetViewMap map={map} /> : null}
+        {displayMap}
 
-
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
-
-              </Marker>
-            </MapContainer>
 
             <FloatDropdown />
           </div>

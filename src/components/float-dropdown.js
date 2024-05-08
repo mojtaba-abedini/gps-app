@@ -160,7 +160,8 @@ const FloatDropdown = () => {
                                 <Card className="p-2" shadow="sm" key={index} isPressable onPress={() => ChangeDevice(item)}>
                                     <CardBody className="text-small justify-between">
                                         <b className="text-center">{item.DeviceName}</b>
-                                        <p className="text-default-500 text-center mt-2 text-md">{`IMEI : ${item.DeviceIMEI}`}</p>
+                                        <p className="text-default-500 text-center mt-3 text-md">{`IMEI : ${item.DeviceIMEI}`}</p>
+                                        <p className="text-default-500 text-center text-md">{`شماره سیم کارت : ${item.DeviceSimCardNumber}`}</p>
                                     </CardBody>
                                 </Card>
                             )) : null}

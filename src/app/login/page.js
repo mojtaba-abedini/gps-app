@@ -146,7 +146,8 @@ const LoginPage = () => {
                 </ModalBody>
                 <ModalFooter>
                   <div className="grid grid-cols-2 w-full">
-                    <div className="flex justify-start w-full">
+                   <div className="flex gap-0">
+                   <div className="flex justify-start w-full">
                       <Button
                      
                         onClick={() => router.push("/forgot-verification", { scroll: false })}
@@ -156,6 +157,17 @@ const LoginPage = () => {
                         فراموشی رمز
                       </Button>
                     </div>
+                    {/* <div className="flex justify-start w-full">
+                      <Button
+                     
+                        onClick={() => router.push("/change-password", { scroll: false })}
+                        className="text-[#14b8a6]"
+                        variant="light"
+                      >
+                        تغییر رمز
+                      </Button>
+                    </div> */}
+                   </div>
                     <div className="flex justify-end w-full">
                       <Button
                       className="bg-[#14b8a6] dark:bg-[#1e293b] text-white"

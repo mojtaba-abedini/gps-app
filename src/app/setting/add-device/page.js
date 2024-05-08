@@ -19,7 +19,9 @@ const AddDevice = () => {
     const [info, setInfo] = useState(null)
     const [isOpen, setIsOpen] = useState(false);
     const [devices, setDevices] = useState(null);
+    const [filterDevices, setFilterDevices] = useState(null);
     const [selected, setSelected] = useState("")
+    const [searchValue, setSearchValue] = useState("")
     const [inputValue, setInputValue] = useState({
         DeviceIMEI: "",
         DeviceSimCardNumber: "",
@@ -111,7 +113,7 @@ const AddDevice = () => {
 
     return (
         <div className="flex h-screen items-center justify-center">
-            <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:1/4 px-5 mt-5 mb-20 z-50">
+            <div className="grid grid-cols-1 gap-3 w-full lg:w-1/4 px-5 mt-5 mb-20 z-50">
 
 
 
@@ -143,12 +145,22 @@ const AddDevice = () => {
 
                         <>
                             <h1 className="text-center mb-3">مدل دستگاه را انتخاب کنید</h1>
+                            <div className="px-5 mb-3">
+                                <Input
+
+                                    value={searchValue}
+                                    onChange={(e) => setSearchValue(e.target.value)}
+                                    variant="faded" type="text" label="جستجوی دستگاه" />
+                            </div>
+
                             <ModalBody className="grid grid-cols-2 mb-36 md:mb-5">
 
-                                {devices !== null ? devices.map((item, index) => (
+
+                                {devices !== null  ? devices.filter(item => item.ModelName.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) => (
                                     <Card shadow="sm" key={index} isPressable onPress={() => SelectItem(item)}>
 
                                         <CardBody className="text-small justify-between">
+                                            <img src={item.ModelPicPath === null ? "/images/image_placeholder.png" :`https://tracker.mmaghsoudi.ir/${item.ModelPicPath}`} />
                                             <b className="text-center">{item.ModelName}</b>
                                             <p className="text-default-500 text-center">{item.ModelId}</p>
                                         </CardBody>
