@@ -303,7 +303,7 @@ function MapHistory() {
               onChange={(e) => SetFromDate(e)}
               format={"YYYY/MM/DD"}
               plugins={[
-                <TimePicker position="bottom" />
+                <TimePicker key={1} position="bottom" />
               ]}
 
             />
@@ -315,7 +315,7 @@ function MapHistory() {
               onChange={(e) => SetToDate(e)}
 
               plugins={[
-                <TimePicker position="bottom" />
+                <TimePicker key={2} position="bottom" />
               ]}
 
             />
