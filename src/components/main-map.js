@@ -31,9 +31,9 @@ import { useTheme } from "next-themes";
 const MainMap = () => {
   const theme = useTheme()
   const icon = L.icon({
-    iconUrl: "/images/marker-icon.png",
-    iconSize: [28, 46],
-    iconAnchor: [14, 46]
+    iconUrl: "/images/location-2.png",
+    iconSize: [26, 44],
+    iconAnchor: [13, 44]
   });
 
 
@@ -54,7 +54,31 @@ const MainMap = () => {
       var timer = setInterval(() => {
         LoadData()
       }, 10000);
+      
+      return () => clearInterval(timer);
+    }
 
+    if (status === "کارکرد درجا") {
+      var timer = setInterval(() => {
+        LoadData()
+      }, 30000);
+      
+      return () => clearInterval(timer);
+    }
+
+    if (status === "پارک") {
+      var timer = setInterval(() => {
+        LoadData()
+      }, 60000);
+      
+      return () => clearInterval(timer);
+    }
+
+    if (status === "بکسل") {
+      var timer = setInterval(() => {
+        LoadData()
+      }, 10000);
+      
       return () => clearInterval(timer);
     }
 

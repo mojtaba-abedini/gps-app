@@ -60,11 +60,20 @@ function MapHistory() {
   const [isLoding, setisLoading] = useState(false)
   const router = useRouter()
   const icon = L.icon({
-    iconUrl: "/images/marker-icon.png",
-    iconSize: [28, 46],
-    iconAnchor: [14, 46]
+    iconUrl: "/images/location-2.png",
+    iconSize: [26, 44],
+    iconAnchor: [13, 44]
   });
-
+  const startIcon = L.icon({
+    iconUrl: "/images/start-flag.png",
+    iconSize: [50, 40],
+    iconAnchor: [25, 40]
+  });
+  const endIcon = L.icon({
+    iconUrl: "/images/end-flag.png",
+    iconSize: [50, 40],
+    iconAnchor: [25, 40]
+  });
   let timer;
 
 
@@ -89,9 +98,9 @@ function MapHistory() {
 
   useEffect(() => {
 
-
+    setWidth(window.innerWidth)
     window.addEventListener('resize', handleResize)
-
+    
 
     const storage = localStorage.getItem("info")
     if (storage === null) router.push('/login')
@@ -264,10 +273,10 @@ function MapHistory() {
         />
         <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
         </Marker>
-        <Marker position={start !== null ? [start[1], start[0]] : null} icon={icon}>
+        <Marker position={start !== null ? [start[1], start[0]] : null} icon={startIcon}>
           <Popup><div className="text-red-500">شروع</div></Popup>
         </Marker>
-        <Marker position={end !== null ? [end[1], end[0]] : null} icon={icon}>
+        <Marker position={end !== null ? [end[1], end[0]] : null} icon={endIcon}>
         </Marker>
 
 
@@ -287,7 +296,7 @@ function MapHistory() {
           <div className="grid  grid-cols-3 gap-2">
             <DatePicker
 
-              className="max-sm:rmdp-mobile"
+              className={`${theme === "dark" ? "bg-dark teal" : "teal "} ${width < 640 ? "rmdp-mobile" : ""}`}
               calendar={persian}
               locale={persian_fa}
               value={valueFromPersian}
@@ -299,7 +308,7 @@ function MapHistory() {
 
             />
             <DatePicker
-              className="bg-dark"
+              className={`${theme === "dark" ? "bg-dark teal" : "teal"} ${width < 640 ? "rmdp-mobile" : ""}`}
               calendar={persian}
               locale={persian_fa}
               value={valueToPersian}

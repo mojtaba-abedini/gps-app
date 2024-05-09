@@ -12,18 +12,22 @@ const Subscription = () => {
     const [info, setInfo] = useState(null)
     const [devices, setDevices] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-    const [defaultValue, setDefaultValue] = useState("")
-    const [price,setPrice]=useState([])
+    
 
 
     useEffect(() => {
         const storage = localStorage.getItem("info")
         if (info === null) setInfo(JSON.parse(storage))
         if (devices === null && info !== null) LoadDevice()
-    
 
+        if (devices !== null) {
+            devices.map(item =>{
+                if(item["price"] === undefined)item["price"]="0";
+                if(item["defaultValue"] === undefined)item["defaultValue"]="1"})
+        }
+        if (devices !== null) console.log(devices);
 
-    }, [info, devices,price])
+    }, [info, devices])
 
 
 
@@ -57,12 +61,12 @@ const Subscription = () => {
 
 
 
-    function GetAmount(Period,DeviceId) {
+    function GetAmount(Period,id) {
 
         setIsLoading(true)
 
         var data = JSON.stringify({
-            GPSModelId: DeviceId,
+            GPSModelId: id,
             Period: Period,
         });
 
@@ -78,9 +82,13 @@ const Subscription = () => {
         axios(config)
             .then(function (response) {
 
+                setDevices (
+                    devices.map((item) => {
+                        return item.DeviceId === id ?  {...item, price:response.data.price,defaultValue:Period}: item;
+                    })
+                ); 
+
               
-               setPrice(response.data.price)
-           
                 setIsLoading(false)
 
             })
@@ -110,13 +118,13 @@ const Subscription = () => {
                                 <div className="text-right text-md">تاریخ اتمام اشتراک</div>
                                 <div className="text-right text-md pr-5">{item.DeviceValidDateTo}</div>
 
-                                <Select className="p-0" fullWidth size="sm" variant="faded" defaultSelectedKeys={defaultValue} onChange={(e) => {GetAmount(e.target.value, "3");setDefaultValue(e.target.value)}}>
+                                <Select className="p-0" fullWidth size="sm" variant="faded" defaultSelectedKeys={item.defaultValue !== undefined ? item.defaultValue : "1"} onChange={(e) => {GetAmount(e.target.value, item.DeviceGPSModelId)}}>
                                     <SelectItem key={"12"} value="یکساله">یکساله</SelectItem>
                                     <SelectItem key={"6"} value="شش ماهه">شش ماهه</SelectItem>
                                     <SelectItem key={"3"} value="سه ماهه">سه ماهه</SelectItem>
                                     <SelectItem key={"1"} value="یک ماهه">یک ماهه</SelectItem>
                                 </Select>
-                                <div className="text-right text-md pr-5">{`${price.length !== 0 ? price : 0} ریال`}</div>
+                                <div className="text-right text-md pr-5">{`${item.price !== undefined ? item.price : 0} ریال`}</div>
 
 
 

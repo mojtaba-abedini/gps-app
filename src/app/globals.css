@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.rmdp-mobile {
+  position: absolute !important;
+  top: 40% !important;
+}
+.rmdp-input {
+
+  border-radius: 9px !important;
+  height: 38px  !important;
+  width: 100%  !important;
+
+}
+
+
+
+
 .dark .leaflet-layer,
 
 .leaflet-control-attribution {
