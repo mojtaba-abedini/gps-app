@@ -27,8 +27,7 @@ import {
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import Lottie from 'react-lottie';
-import '@majidh1/jalalidatepicker';
-import '@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css'
+
 import { useTheme } from "next-themes";
 import animationData from './no-data.json'
 import moment from "jalali-moment";

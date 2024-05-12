@@ -30,11 +30,37 @@ import { useTheme } from "next-themes";
 
 const MainMap = () => {
   const theme = useTheme()
+
   const icon = L.icon({
     iconUrl: "/images/location-2.png",
     iconSize: [26, 44],
     iconAnchor: [13, 44]
   });
+  const parkIcon = L.icon({
+    iconUrl: "/images/parking.png",
+    iconSize: [38, 46],
+    iconAnchor: [19, 46]
+  });
+  const towingIcon = L.icon({
+    iconUrl: "/images/towing.png",
+    iconSize: [38, 46],
+    iconAnchor: [19, 46]
+  });
+
+  const carIcon = L.icon({
+    iconUrl: "/images/car.png",
+    iconSize: [38, 46],
+    iconAnchor: [19, 46]
+  });
+
+  const racingIcon = L.icon({
+    iconUrl: "/images/racing.png",
+    iconSize: [38, 46],
+    iconAnchor: [19, 46]
+  });
+
+
+
 
 
   const [position, setPosition] = useState([])
@@ -82,6 +108,8 @@ const MainMap = () => {
       return () => clearInterval(timer);
     }
 
+  
+
 
 
 
@@ -108,11 +136,13 @@ const MainMap = () => {
       .then(function (response) {
 
         setData(response.data)
-        if (response.data.VehiclePower == "True" && parseInt(response.data.DataSpeed) > 0) setStatus("در حال حرکت")
-        if (response.data.VehiclePower == "True" && parseInt(response.data.DataSpeed) === 0) setStatus("کارکرد درجا")
-        if (response.data.VehiclePower == "False" && parseInt(response.data.DataSpeed) > 0) setStatus("بکسل")
-        if (response.data.VehiclePower == "False" && parseInt(response.data.DataSpeed) === 0) setStatus("پارک")
+        if (response.data.VehiclePower === "True" && parseInt(response.data.DataSpeed) > 0) setStatus("در حال حرکت")
+        if (response.data.VehiclePower === "True" && parseInt(response.data.DataSpeed) === 0) setStatus("کارکرد درجا")
+        if (response.data.VehiclePower === "False" && parseInt(response.data.DataSpeed) > 0) setStatus("بکسل")
+        if (response.data.VehiclePower === "False" && parseInt(response.data.DataSpeed) === 0) setStatus("پارک")
         setPosition([response.data.DataLong / 10000000, response.data.DataLat / 10000000])
+        console.log("this status "+status);
+
       })
       .catch(function (error) {
         console.log(error.message);
@@ -138,7 +168,7 @@ const MainMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={icon}>
+        <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={status === "در حال حرکت" ? racingIcon : status === "کارکرد درجا" ? carIcon : status === "بکسل" ? towingIcon : status === "پارک" ? parkIcon : icon}>
         </Marker>
         
 
@@ -262,7 +292,11 @@ const MainMap = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={position.length > 0 ? [35.715298, 51.404343] : [51.505, -0.09]} icon={icon}>
+
+
+
+
+            <Marker position={position.length > 0 ? [35.715298, 51.404343] : [51.505, -0.09]} icon={status === "در حال حرکت" ? racingIcon : status === "کارکرد درجا" ? carIcon : status === "بکسل" ? towingIcon : status === "پارک" ? parkIcon : icon}>
 
             </Marker>
           </MapContainer>
