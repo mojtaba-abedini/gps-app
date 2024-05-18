@@ -1,20 +1,21 @@
-/** @type {import('next').NextConfig} */
 
 
 const withPWA = require('next-pwa')({
     dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
     register: true,
-    skipWaiting: true
-
+    skipWaiting: true,
+    disable: false
 })
-
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'export',
-    trailingSlash: true
+    reactStrictMode: false,
+    
+    publicRuntimeConfig: {
+        // Will be available on both server and client
+        backendUrl: process.env.BACKEND_URL,
+    },
+    swcMinify: true,
+    distDir: "build",
 }
 
-module.exports = withPWA({
-    nextConfig
-})
+module.exports = withPWA(nextConfig)
