@@ -71,7 +71,7 @@ const FloatDropdown = () => {
 
 
     return (
-        <div className="flex items-center absolute right-5 top-5 ">
+        <div className="flex items-center fixed right-5 top-5 ">
             <Dropdown placement="bottom-end">
                 <DropdownTrigger>
                     <Avatar
