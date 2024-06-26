@@ -16,13 +16,53 @@ const UpdateVehicle = () => {
       FuelUsagePerStandBy:""
     })
 
+    const [info, setInfo] = useState(null)
+    const [deviceId, setDeviceId] = useState(null)
+
     useEffect(() => {
         const storage = localStorage.getItem("info")
-        if (info === null) setInfo(JSON.parse(storage))
-    }, [])
+        if (info === null) setInfo(JSON.parse(storage)) 
+        if (deviceId === null) setDeviceId(localStorage.getItem("deviceId"))
+        if (deviceId !== null && inputValues.Pelak==="")GetVehicleInfo()
+    }, [deviceId,inputValues])
 
+  
 
-    const [info, setInfo] = useState(null)
+    const GetVehicleInfo = () => {
+        var data = JSON.stringify({
+            DeviceId: deviceId
+        });
+        var config = {
+            method: "post",
+            url: "/get_car_info_by_device_id",
+            headers: {
+                Authorization: `Bearer ${info.token}`,
+                "Content-Type": "application/json",
+            },
+            data: data,
+        };
+
+        axios(config)
+            .then(function (response) {
+                toast.success("اطلاعات خودرو با موفقیت دریافت شد.", { position: "bottom-right",rtl:true });
+     
+                setInputValues({
+                    ...inputValues,
+                    Pelak: response.data['car_info'][0].PersonName,
+                    MotorNumber:  response.data['car_info'][0].PersonFamily,
+                    VIN: response.data['car_info'][0].DeviceUserName,
+                    FuelUsagePer100: response.data['car_info'][0].PersonMobile,
+                    FuelUsagePerStandBy: response.data['car_info'][0].PersonMobile
+      
+
+                })
+              
+            })
+            .catch(function (error) {
+                toast.error(error.message, { position: "bottom-right",rtl:true });
+             });
+
+    }
 
 
 
@@ -75,11 +115,11 @@ const UpdateVehicle = () => {
 
             <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:w-1/4 px-5 mt-5 mb-20 z-50">
                 <ToastContainer />
-                <Input onChange={(e) => setInputValues({ ...inputValues, Pelak: e.target.value })} variant="faded" type="text" label="پلاک" />
-                <Input onChange={(e) => setInputValues({ ...inputValues, MotorNumber: e.target.value })} variant="faded" type="text" label="شماره موتور" />
-                <Input onChange={(e) => setInputValues({ ...inputValues, VIN: e.target.value })} variant="faded" type="text" label="شماره VIN" />
-                <Input onChange={(e) => setInputValues({ ...inputValues, FuelUsagePer100: e.target.value })} variant="faded" type="text" label="مصرف بنزین در 10 کیلومتر" />
-                <Input onChange={(e) => setInputValues({ ...inputValues, FuelUsagePerStandBy: e.target.value })} variant="faded" type="text" label="مصرف بنزین در حالت درجا" />
+                <Input value={inputValues.Pelak} onChange={(e) => setInputValues({ ...inputValues, Pelak: e.target.value })} variant="faded" type="text" label="پلاک" />
+                <Input value={inputValues.MotorNumber} onChange={(e) => setInputValues({ ...inputValues, MotorNumber: e.target.value })} variant="faded" type="text" label="شماره موتور" />
+                <Input value={inputValues.VIN} onChange={(e) => setInputValues({ ...inputValues, VIN: e.target.value })} variant="faded" type="text" label="شماره VIN" />
+                <Input value={inputValues.FuelUsagePer100} onChange={(e) => setInputValues({ ...inputValues, FuelUsagePer100: e.target.value })} variant="faded" type="text" label="مصرف بنزین در 10 کیلومتر" />
+                <Input value={inputValues.FuelUsagePerStandBy} onChange={(e) => setInputValues({ ...inputValues, FuelUsagePerStandBy: e.target.value })} variant="faded" type="text" label="مصرف بنزین در حالت درجا" />
                
       
 

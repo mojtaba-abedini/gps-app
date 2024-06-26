@@ -111,3 +111,7 @@
 #profile-file-input{
   display: none;
 }
+.Toastify__toast-body {
+
+  font-size: 14px;
+}
