@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ducanh2912/next-pwa": "^10.2.7",
     "@nextui-org/react": "^2.2.9",
     "@react-leaflet/core": "^2.1.0",
     "@types/mapbox-gl": "^2.7.19",
@@ -27,7 +26,8 @@
     "react-leaflet": "^4.2.1",
     "react-lottie": "^1.2.4",
     "react-map-gl": "^7.1.7",
-    "react-multi-date-picker": "^4.4.1"
+    "react-multi-date-picker": "^4.4.1",
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

@@ -1,7 +1,5 @@
 "use client"
 
-import BottomNavigation from "@/components/bottomNavigation";
-import FloatDropdown from "@/components/float-dropdown";
 import SelectAlarm from "@/components/select-alarm";
 import { Accordion, Slider, AccordionItem, Card, CardBody, Input, Select, SelectItem, Switch } from "@nextui-org/react";
 import { useState } from "react";
@@ -399,9 +397,7 @@ const NotificationSetting = () => {
                 </div>
 
             </div>
-            <FloatDropdown />
-
-            <BottomNavigation active={2} />
+    
         </>
     )
 }

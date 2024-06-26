@@ -1,7 +1,6 @@
 "use client"
 
-import BottomNavigation from "@/components/bottomNavigation";
-import FloatDropdown from "@/components/float-dropdown";
+
 import { Button, Card, CardBody } from "@nextui-org/react";
 import { useState } from "react";
 
@@ -43,10 +42,6 @@ const [carState,setCarState]=useState(false)
 
 
 
-
-            <FloatDropdown />
-
-            <BottomNavigation active={2} />
 
         </>
     )
