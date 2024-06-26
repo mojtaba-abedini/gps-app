@@ -48,11 +48,11 @@ const UpdateVehicle = () => {
      
                 setInputValues({
                     ...inputValues,
-                    Pelak: response.data['car_info'][0].PersonName,
-                    MotorNumber:  response.data['car_info'][0].PersonFamily,
-                    VIN: response.data['car_info'][0].DeviceUserName,
-                    FuelUsagePer100: response.data['car_info'][0].PersonMobile,
-                    FuelUsagePerStandBy: response.data['car_info'][0].PersonMobile
+                    Pelak: response.data['car_info'][0].VehiclePelak,
+                    MotorNumber:  response.data['car_info'][0].VehicleMotorNo,
+                    VIN: response.data['car_info'][0].VehicleShasiNo,
+                    FuelUsagePer100: response.data['car_info'][0].FuelUsagePer100,
+                    FuelUsagePerStandBy: response.data['car_info'][0].FuelUsagePerStandBy
       
 
                 })
