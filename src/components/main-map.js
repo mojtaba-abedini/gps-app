@@ -80,7 +80,7 @@ const MainMap = () => {
       var timer = setInterval(() => {
         LoadData()
       }, 10000);
-      
+
       return () => clearInterval(timer);
     }
 
@@ -88,7 +88,7 @@ const MainMap = () => {
       var timer = setInterval(() => {
         LoadData()
       }, 30000);
-      
+
       return () => clearInterval(timer);
     }
 
@@ -96,7 +96,7 @@ const MainMap = () => {
       var timer = setInterval(() => {
         LoadData()
       }, 60000);
-      
+
       return () => clearInterval(timer);
     }
 
@@ -104,16 +104,16 @@ const MainMap = () => {
       var timer = setInterval(() => {
         LoadData()
       }, 10000);
-      
+
       return () => clearInterval(timer);
     }
 
-  
 
 
 
 
-  }, [info,status])
+
+  }, [info, status])
 
 
 
@@ -141,7 +141,7 @@ const MainMap = () => {
         if (response.data.VehiclePower === "False" && parseInt(response.data.DataSpeed) > 0) setStatus("بکسل")
         if (response.data.VehiclePower === "False" && parseInt(response.data.DataSpeed) === 0) setStatus("پارک")
         setPosition([response.data.DataLong / 10000000, response.data.DataLat / 10000000])
-        console.log("this status "+status);
+        console.log("this status " + status);
 
       })
       .catch(function (error) {
@@ -157,12 +157,12 @@ const MainMap = () => {
   const displayMap = useMemo(
     () => (
       <MapContainer
-      
+
         center={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]}
         zoom={16}
         scrollWheelZoom={true}
         ref={setMap}>
-       
+
 
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -170,7 +170,7 @@ const MainMap = () => {
         />
         <Marker position={position.length > 0 ? [position[1], position[0]] : [51.505, -0.09]} icon={status === "در حال حرکت" ? racingIcon : status === "کارکرد درجا" ? carIcon : status === "بکسل" ? towingIcon : status === "پارک" ? parkIcon : icon}>
         </Marker>
-        
+
 
 
       </MapContainer>
@@ -272,14 +272,15 @@ const MainMap = () => {
 
           <div className="w-full">
 
-          {map ? <SetViewMap map={map} /> : null}
-        {displayMap}
+            {map ? <SetViewMap map={map} /> : null}
+            {displayMap}
 
 
             <FloatDropdown />
           </div>
         </> :
         <>
+          <FloatDropdown />
           <MapContainer
             className={theme}
             center={position.length > 0 ? [35.715298, 51.404343] : [51.505, -0.09]}
@@ -295,13 +296,13 @@ const MainMap = () => {
 
 
 
-
+{/* 
             <Marker position={position.length > 0 ? [35.715298, 51.404343] : [51.505, -0.09]} icon={status === "در حال حرکت" ? racingIcon : status === "کارکرد درجا" ? carIcon : status === "بکسل" ? towingIcon : status === "پارک" ? parkIcon : icon}>
 
-            </Marker>
+            </Marker> */}
           </MapContainer>
 
-          <FloatDropdown />
+
 
 
 

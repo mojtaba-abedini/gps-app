@@ -27,10 +27,16 @@ const FloatDropdown = () => {
 
         const storage = localStorage.getItem("info")
         const name = localStorage.getItem("deviceName")
+        const savedDeviceId = localStorage.getItem("deviceId")
 
         if (info === null) setInfo(JSON.parse(storage))
-        if (device === null && info !== null) LoadDevice()
-        if (deviceId === null && info !== null) setDeviceId(localStorage.getItem("deviceId"))
+        if(info !== null && device === null) LoadDevice()
+        if (deviceId === null && savedDeviceId === null && info !== null) {
+            localStorage.setItem("deviceId", "1")
+            setDeviceId("1")
+            LoadDevice()
+         
+        }
         if (name !== null) setSelectedName(name)
 
     }, [info, device, selectedName])
@@ -58,8 +64,12 @@ const FloatDropdown = () => {
         };
         axios(config)
             .then(function (response) {
-
+              
                 setDevice(response.data.devices)
+                if(selectedName === "") {
+                    setSelectedName(response.data.devices[0].DeviceName)
+                    localStorage.setItem("deviceName", response.data.devices[0].DeviceName)
+                }
 
             })
             .catch(function (error) {
@@ -71,7 +81,7 @@ const FloatDropdown = () => {
 
 
     return (
-        <div className="flex items-center fixed right-5 top-5 ">
+        <div className="flex items-center fixed right-5 top-5 z-50">
             <Dropdown placement="bottom-end">
                 <DropdownTrigger>
                     <Avatar

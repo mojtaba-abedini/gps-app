@@ -14,7 +14,7 @@ export default function Home() {
   
   useEffect(() => {
     const info = localStorage.getItem("info")
-  
+    if (localStorage.getItem("notification") === null) localStorage.setItem("notification", false)
     if (info === null) router.push("/login")
   })
 
