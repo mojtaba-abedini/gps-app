@@ -25,17 +25,9 @@ const DeviceConfig = () => {
 
 
 
-
-
-
-
-
     const SaveConfig = () => {
 
-
     }
-
-
 
 
 
