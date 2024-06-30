@@ -125,7 +125,7 @@ const FloatDropdown = () => {
 
 
 
-            <Modal  motionProps={{
+            <Modal motionProps={{
                 variants: {
                     enter: {
                         y: 0,
@@ -144,7 +144,7 @@ const FloatDropdown = () => {
                         },
                     },
                 }
-            }}  className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
+            }} backdrop ='blur'  className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
                 <ModalContent  className="max-sm:pb-10">
                     <>
                         <ModalBody>
@@ -189,7 +189,7 @@ const FloatDropdown = () => {
                         },
                     },
                 }
-            }}  className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
+            }} backdrop ='blur' className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
 
 
 

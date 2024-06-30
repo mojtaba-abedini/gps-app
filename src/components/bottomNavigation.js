@@ -67,7 +67,7 @@ const BottomNavigation = ({ active }) => {
 
 
 
-            <Modal motionProps={{
+            <Modal backdrop ='blur' motionProps={{
                 variants: {
                     enter: {
                         y: 0,
@@ -140,7 +140,7 @@ const BottomNavigation = ({ active }) => {
             </Modal>
 
 
-            <Modal motionProps={{
+            <Modal backdrop ='blur' motionProps={{
                 variants: {
                     enter: {
                         y: 0,
@@ -201,7 +201,7 @@ const BottomNavigation = ({ active }) => {
                 </ModalContent>
             </Modal>
 
-            <Modal motionProps={{
+            <Modal backdrop ='blur' motionProps={{
                 variants: {
                     enter: {
                         y: 0,
