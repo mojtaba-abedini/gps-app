@@ -50,7 +50,7 @@ const UpdateDevice = () => {
 
         axios(config)
             .then(function (response) {
-                toast.success("اطلاعات دستگاه با موفقیت دریافت شد.", { position: "bottom-right",rtl:true });
+                toast.success("اطلاعات دستگاه با موفقیت دریافت شد.", { position: "top-center",rtl:true });
      
                 setInputValues({
                     ...inputValues,
@@ -62,7 +62,7 @@ const UpdateDevice = () => {
               
             })
             .catch(function (error) {
-                toast.error(error.message, { position: "bottom-right",rtl:true });
+                toast.error(error.message, { position: "top-center",rtl:true });
              });
 
     }
@@ -92,11 +92,11 @@ const UpdateDevice = () => {
 
         axios(config)
             .then(function (response) {
-                toast.success("اطلاعات دستگاه با موفقیت ویرایش شد", { position: "bottom-right",rtl:true  });
+                toast.success("اطلاعات دستگاه با موفقیت ویرایش شد", { position: "top-center",rtl:true  });
             })
             .catch(function (error) {
 
-                toast.error(error.message, { position: "bottom-right" });
+                toast.error(error.message, { position: "top-center" });
              });
 
     }
@@ -109,7 +109,7 @@ const UpdateDevice = () => {
         <div className="flex h-screen items-center justify-center">
 
             <div className="grid grid-cols-1 gap-3 w-full md:w-2/5 lg:w-1/4 px-5 mt-5 mb-20 z-50">
-                <ToastContainer />
+                <div className="mx-5"><ToastContainer /></div>
                 <Input value={inputValues.DeviceName} onChange={(e) => setInputValues({ ...inputValues, DeviceName: e.target.value })} variant="faded" type="text" label="نام دستگاه" />
                 <Input value={inputValues.PhoneNumber} onChange={(e) => setInputValues({ ...inputValues, PhoneNumber: e.target.value })} variant="faded" type="text" label="شماره همراه" />
                 <Input value={inputValues.OperatorUserName} onChange={(e) => setInputValues({ ...inputValues, OperatorUserName: e.target.value })} variant="faded" type="text" label="نام کاربری" />

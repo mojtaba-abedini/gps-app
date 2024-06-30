@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 // import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
-import "mapbox-gl/dist/mapbox-gl.css";
+
 import BottomPlayer from "./bottomPlayer";
 import "./mapStyle.css";
 import { Button } from "@nextui-org/react";
@@ -14,7 +14,7 @@ import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 import "react-multi-date-picker/styles/layouts/mobile.css"
 // import { useRouter } from 'next/navigation'
 import { Card, CardBody } from "@nextui-org/react";
-import DatePicker, { DateObject } from "react-multi-date-picker"
+import DatePicker from "react-multi-date-picker"
 import {
   MapContainer,
   TileLayer,
@@ -26,10 +26,10 @@ import {
 
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import Lottie from 'react-lottie';
+
 
 import { useTheme } from "next-themes";
-import animationData from './no-data.json'
+
 import moment from "jalali-moment";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
@@ -82,6 +82,7 @@ function MapHistory() {
     setPointData([])
     setPolyline(null)
     setPosition([])
+    LoadData()
 
   }
 
@@ -91,14 +92,14 @@ function MapHistory() {
   }
 
 
-  function handleResize() {
-    setWidth(window.innerWidth)
-  }
+  // function handleResize() {
+  //   setWidth(window.innerWidth)
+  // }
 
   useEffect(() => {
 
-    setWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
+    // setWidth(window.innerWidth)
+    // window.addEventListener('resize', handleResize)
     
 
     const storage = localStorage.getItem("info")
@@ -106,7 +107,7 @@ function MapHistory() {
 
     if (info === null) setInfo(JSON.parse(storage))
 
-    if (pointData.length === 0 && info !== null) LoadData()
+    // if (pointData.length === 0 && info !== null) LoadData()
     if (pointData.length !== 0 && position.length === 0) {
       setPosition([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000]);
       setStart([(pointData[0].DataLongitude) / 10000000, (pointData[0].DataLatitude) / 10000000]);
@@ -117,7 +118,7 @@ function MapHistory() {
 
     if (play) {
       timer = setInterval(() => {
-        if (index < (polyline.length)) {
+        if (polyline != null && index < (polyline.length)) {
           setIndex(prevIndex => prevIndex + 1)
           setPosition([polyline[index][1], polyline[index][0]]);
           setProgress((index / polyline.length) * 100)
@@ -247,14 +248,7 @@ function MapHistory() {
 
 
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  }
+
 
   const displayMap = useMemo(
     () => (
@@ -368,11 +362,7 @@ function MapHistory() {
       </> : isLoding ? <Loading /> :
 
         <div role="status" className="flex pb-28  items-center justify-center h-screen">
-          <Lottie className="p-10" options={defaultOptions}
-
-            height={(width - 1200) / 1.4}
-            width={width - 1200}
-          />
+         <img className="pb-20" src="/images/no-data.svg" width={600}/>
 
 
         </div>

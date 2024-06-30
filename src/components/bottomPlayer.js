@@ -1,4 +1,7 @@
 "use client"
+
+import { Slider } from "@nextui-org/react";
+
 const BottomPlayer = ({ speed = 0, progress = 0, clickPlay = false, onClickRefresh = () => null, onClickPlay = () => null, onClickPause = () => null, onClickBackward = () => null(), onClickForward = () => null, onClickChangeSpeed = () => null }) => {
 
 
@@ -99,11 +102,19 @@ const BottomPlayer = ({ speed = 0, progress = 0, clickPlay = false, onClickRefre
                         </div> */}
                     </div>
                     <div className="flex items-center justify-between space-x-2 rtl:space-x-reverse">
-                        {/* <span className="text-sm font-medium text-gray-500 dark:text-gray-400">3:45</span> */}
-                        <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-800" style={{ direction: 'ltr' }}>
-                            <div className="bg-[#14b8a6] dark:bg-[#1e293b] h-1.5 rounded-full" style={{ width: `${progress}%` }}></div>
-                        </div>
-                        {/* <span className="text-sm font-medium text-gray-500 dark:text-gray-400">5:00</span> */}
+                       
+                        {/* <div className="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-800" style={{ direction: 'ltr' }}> */}
+                            {/* <div className="bg-[#14b8a6] dark:bg-[#1e293b] h-1.5 rounded-full" style={{ width: `${progress}%` }}></div> */}
+
+                            <Slider  size="sm" 
+                                             
+                                                step={1} maxValue={100} minValue={0} value={progress} defaultValue={progress}
+                                                classNames={{ base: " gap-3", track: "border-s-[#14b8a6]", filler: "bg-gradient-to-r from-[#14b8a6] to-[#00796b]"}}
+                                                renderThumb={(props) => ( <div {...props} className="group p-1 top-1/2 bg-background border-small border-default-200 dark:border-default-400/50 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"> <span className="transition-transform bg-gradient-to-br shadow-small from-[#14b8a6] to-[#00796b] rounded-full w-3 h-3 block group-data-[dragging=true]:scale-80" /></div>)}
+                                            />
+
+                        {/* </div> */}
+                      
                     </div>
                 </div>
             </div>

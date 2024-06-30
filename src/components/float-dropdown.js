@@ -125,8 +125,27 @@ const FloatDropdown = () => {
 
 
 
-            <Modal className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
-                <ModalContent className="max-sm:pb-28">
+            <Modal  motionProps={{
+                variants: {
+                    enter: {
+                        y: 0,
+                        opacity: 1,
+                        transition: {
+                            duration: 0.12,
+                            ease: "easeOut",
+                        },
+                    },
+                    exit: {
+                        y: 200,
+                        opacity: 0,
+                        transition: {
+                            duration: 0.12,
+                            ease: "easeIn",
+                        },
+                    },
+                }
+            }}  className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
+                <ModalContent  className="max-sm:pb-10">
                     <>
                         <ModalBody>
                             <h1>آیا مایل به خروج از نرم افزار هستید؟</h1>
@@ -151,11 +170,30 @@ const FloatDropdown = () => {
                 </ModalContent>
             </Modal>
 
-            <Modal className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
+            <Modal  motionProps={{
+                variants: {
+                    enter: {
+                        y: 0,
+                        opacity: 1,
+                        transition: {
+                            duration: 0.12,
+                            ease: "easeOut",
+                        },
+                    },
+                    exit: {
+                        y: 200,
+                        opacity: 0,
+                        transition: {
+                            duration: 0.12,
+                            ease: "easeIn",
+                        },
+                    },
+                }
+            }}  className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
 
 
 
-                <ModalContent className="max-sm:pb-28">
+                <ModalContent className="max-sm:pb-10">
                     <>
 
                         <Button onClick={() => setIsOpenDevice(false)} variant="light" isIconOnly >

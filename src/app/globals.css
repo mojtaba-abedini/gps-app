@@ -31,7 +31,8 @@
 
 @font-face {
   font-family: iranYekan;
-  src: url("../fonts/iranyekanwebregular(fanum).woff") format("opentype");
+  /* src: url("../fonts/iranyekanwebregular(fanum).woff") format("opentype"); */
+  src: url("../fonts/YekanBakhMedium.woff") format("opentype");
 }
 
 

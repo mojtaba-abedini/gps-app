@@ -2,15 +2,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 // import Map, { Marker, Source, Layer } from "react-map-gl";
 import axios from 'axios'
-import "mapbox-gl/dist/mapbox-gl.css";
-import { useDisclosure } from "@nextui-org/react";
+
 
 import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
-  Polyline,
+
 
 } from 'react-leaflet'
 
@@ -22,8 +20,7 @@ import "./mapStyle.css";
 import { useRouter } from 'next/navigation'
 
 import { Card, CardBody } from "@nextui-org/react";
-import FloatingButton from "./floatingButton";
-import FloatingSideBar from "./floatingSideBar";
+
 import FloatDropdown from "./float-dropdown";
 import { useTheme } from "next-themes";
 
