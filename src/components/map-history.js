@@ -331,7 +331,7 @@ function MapHistory() {
             <CardBody>
               <div className="grid grid-cols-1 items-center">
                 <div className="flex items-center justify-center">
-                  <Image alt="image or icon" className="mb-2" width={35} src="/images/time.png" />
+                  <img alt="image or icon" className="mb-2" width={35} src="/images/time.png" />
                 </div>
 
                 <div className="flex items-center justify-center text-sm text-center">{(pointData[index].DataDeviceTime).split(".")[0]}</div>
@@ -343,7 +343,7 @@ function MapHistory() {
             <CardBody>
               <div className="grid grid-cols-1 items-center">
                 <div className="flex items-center justify-center">
-                  <Image alt="image or icon" className="mb-2" width={35} src="/images/speed.png" />
+                  <img alt="image or icon" className="mb-2" width={35} src="/images/speed.png" />
                 </div>
 
                 <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
@@ -363,7 +363,7 @@ function MapHistory() {
       </> : isLoding ? <Loading /> :
 
         <div role="status" className="flex pb-28  items-center justify-center h-screen">
-          <Image alt="image or icon" className="pb-20" src="/images/no-data.svg" height={300}
+          <img alt="image or icon" className="pb-20" src="/images/no-data.svg" height={300}
 
             objectFit="cover" width={600} />
 

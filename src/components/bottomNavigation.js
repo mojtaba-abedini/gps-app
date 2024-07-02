@@ -44,22 +44,22 @@ const BottomNavigation = ({ active }) => {
                 <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
                     <button onClick={() => { router.push('/', { scroll: false }) }} type="button" className={active === 1 ? buttonActive : buttonNoActive}>
 
-                        <Image alt="image or icon" height={active === 1 ? 28 : 23} className="mb-2" width={active === 1 ? 28 : 23} src="/images/home.png" />
+                        <img alt="image or icon" height={active === 1 ? 28 : 23} className="mb-2" width={active === 1 ? 28 : 23} src="/images/home.png" />
                         <span className={active === 1 ? textActive : textNoActive}>پیشخوان</span>
                     </button>
                     <button onClick={() => setIsOpenFeatures(true)} type="button" className={active === 2 ? buttonActive : buttonNoActive}>
 
-                        <Image alt="image or icon" height={active === 2 ? 28 : 23} className="mb-2" width={active === 2 ? 28 : 23} src="/images/feature.png" />
+                        <img alt="image or icon" height={active === 2 ? 28 : 23} className="mb-2" width={active === 2 ? 28 : 23} src="/images/feature.png" />
                         <span className={active === 2 ? textActive : textNoActive}>امکانات</span>
                     </button>
                     <button onClick={() => setIsOpenSetting(true)} type="button" className={active === 3 ? buttonActive : buttonNoActive}>
 
-                        <Image alt="image or icon" height={active === 3 ? 28 : 23} className="mb-2" width={active === 3 ? 28 : 23} src="/images/setting.png" />
+                        <img alt="image or icon" height={active === 3 ? 28 : 23} className="mb-2" width={active === 3 ? 28 : 23} src="/images/setting.png" />
                         <span className={active === 3 ? textActive : textNoActive}>تنظمیات</span>
                     </button>
                     <button onClick={() => setIsOpenReports(true)} type="button" className={active === 4 ? buttonActive : buttonNoActive}>
 
-                        <Image alt="image or icon" height={active === 4 ? 28 : 23} className="mb-2" width={active === 4 ? 28 : 23} src="/images/report.png" />
+                        <img alt="image or icon" height={active === 4 ? 28 : 23} className="mb-2" width={active === 4 ? 28 : 23} src="/images/report.png" />
                         <span className={active === 4 ? textActive : textNoActive}>گزارشات</span>
                     </button>
                 </div>

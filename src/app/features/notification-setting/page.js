@@ -29,7 +29,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">شتاب دهنده سریع</div></div>
                                     <div className="items-start">
 
@@ -61,7 +61,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">سطح بالا ولتاژ آنالوگ 1</div></div>
                                     <div className="items-start">
 
@@ -102,7 +102,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">سطح پایین ولتاژ آنالوگ 1</div></div>
                                     <div className="items-start">
 
@@ -143,7 +143,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">پیچیدن خطرناک</div></div>
                                     <div className="items-start">
 
@@ -174,7 +174,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">سطح باطری</div></div>
                                     <div className="items-start">
 
@@ -215,7 +215,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">بکسل</div></div>
                                     <div className="items-start">
 
@@ -246,7 +246,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">ترمز شدید</div></div>
                                     <div className="items-start">
 
@@ -276,7 +276,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">ضربه</div></div>
                                     <div className="items-start">
 
@@ -307,7 +307,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">هشدار ورودی دیجیتال</div></div>
                                     <div className="items-start">
 
@@ -338,7 +338,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">قطع بیش از حد ارتباط</div></div>
                                     <div className="items-start">
 
@@ -368,7 +368,7 @@ const NotificationSetting = () => {
                         <Card key={1}>
                             <CardBody>
                                 <div className="grid grid-cols-2 gap-5 items-center justify-center py-3 pr-5 pl-4">
-                                    <div className="flex gap-3"><Image alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
+                                    <div className="flex gap-3"><img alt="image or icon" height={25} className="mb-2" width={25} src="/images/alarm.png" />
                                         <div className="text-right text-md mt-1">باز شدن درب خودرو</div></div>
                                     <div className="items-start">
 

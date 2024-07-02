@@ -161,7 +161,7 @@ const AddDevice = () => {
                                     <Card shadow="sm" key={index} isPressable onPress={() => SelectItem(item)}>
 
                                         <CardBody className="text-small justify-between">
-                                            <Image alt="image or icon" src={item.ModelPicPath === null ? "/images/image_placeholder.png" :`https://tracker.mmaghsoudi.ir/${item.ModelPicPath}`} />
+                                            <img alt="image or icon" src={item.ModelPicPath === null ? "/images/image_placeholder.png" :`https://tracker.mmaghsoudi.ir/${item.ModelPicPath}`} />
                                             <b className="text-center">{item.ModelName}</b>
                                             <p className="text-default-500 text-center">{item.ModelId}</p>
                                         </CardBody>

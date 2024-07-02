@@ -191,7 +191,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/time.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/time.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data._DataTimeStamp}</div>
@@ -203,7 +203,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/key.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/key.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data.VehiclePower === "True" ? "روشن" : "خاموش"}</div>
@@ -214,7 +214,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/height.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/height.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data.DataAlt}</div>
@@ -225,7 +225,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/angle.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/angle.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data.DataAngle}</div>
@@ -236,7 +236,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/speed.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/speed.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data.DataSpeed}</div>
@@ -247,7 +247,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/gps.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/gps.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data.DataSatellites}</div>
@@ -258,7 +258,7 @@ const MainMap = () => {
               <CardBody>
                 <div className="grid grid-cols-1 items-center">
                   <div className="flex items-center justify-center">
-                    <Image alt="image or icon" className="mb-2" width={35} src="/images/voltage.png" />
+                    <img alt="image or icon" className="mb-2" width={35} src="/images/voltage.png" />
                   </div>
 
                   <div className="flex items-center justify-center text-sm">{data.DataDeviceBatteryVoltage}</div>

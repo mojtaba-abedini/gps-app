@@ -101,25 +101,25 @@ const FloatDropdown = () => {
                     </DropdownItem>
                     <DropdownItem key="home" onClick={() => router.push("/")}>
                         <div className="flex gap-2">
-                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/home.png" />
+                            <img alt="image or icon" height={20} className="mb-2" width={20} src="/images/home.png" />
 
                             <div>پیشخوان</div></div>
                     </DropdownItem>
                     <DropdownItem key="change-device" onClick={() => setIsOpenDevice(!isOpenDevice)}>
                         <div className="flex gap-2">
-                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/car.png" />
+                            <img alt="image or icon" height={20} className="mb-2" width={20} src="/images/car.png" />
 
                             <div>تغییر دستگاه</div></div>
                     </DropdownItem>
                     <DropdownItem key="change-password" onClick={() => router.push("/change-password")}>
                         <div className="flex gap-2">
-                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/password.png" />
+                            <img alt="image or icon" height={20} className="mb-2" width={20} src="/images/password.png" />
 
                             <div>تغییر رمز عبور</div></div>
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onClick={() => setIsOpen(true)}>
                         <div className="flex gap-2">
-                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/exit.png" />
+                            <img alt="image or icon" height={20} className="mb-2" width={20} src="/images/exit.png" />
 
                             <div>خروج از حساب کاربری</div></div>
                     </DropdownItem>
