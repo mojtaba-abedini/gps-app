@@ -122,7 +122,7 @@ const UpdatePerson = () => {
                 <Input value={inputValues.NationalCode}  onChange={(e) => setInputValues({ ...inputValues, NationalCode: e.target.value })} variant="faded" type="text" label="کد ملی" />
                 <Input value={inputValues.Mobile}  onChange={(e) => setInputValues({ ...inputValues, Mobile: e.target.value })} variant="faded" type="text" label="تلفن همراه" />
                
-                 <input name="file-input" onChange={(e) => setInputValues({ ...inputValues, Image: e.target.files[0] })} class="p-3  block w-full text-lg text-gray-900 border-2 border-gray-200 rounded-xl cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="profile-file-input" type="file"/>
+                 <input name="file-input" onChange={(e) => setInputValues({ ...inputValues, Image: e.target.files[0] })} className="p-3  block w-full text-lg text-gray-900 border-2 border-gray-200 rounded-xl cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="profile-file-input" type="file"/>
                  <label id="file-input-label" for="profile-file-input" className='text-md text-gray-600 p-4 block w-full text-lg text-gray-900 border-2 border-gray-200 rounded-xl cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400'>{inputValues.Image === null ? "تصویر پروفایل" : inputValues.Image.name}</label>
 
 

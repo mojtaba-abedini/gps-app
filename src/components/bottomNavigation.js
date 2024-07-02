@@ -37,26 +37,26 @@ const BottomNavigation = ({ active }) => {
     }
 
     return (
-        <> <div class="w-full" style={{ zIndex: 10 }}>
+        <> <div className="w-full z-10" style={{ zIndex: 10 }}>
 
-            <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200  dark:bg-[#1e293b] dark:border-gray-600">
-                <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
-                    <button onClick={() => { router.push('/', { scroll: false }) }} type="button" class={active === 1 ? buttonActive : buttonNoActive}>
+            <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200  dark:bg-[#1e293b] dark:border-gray-600">
+                <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+                    <button onClick={() => { router.push('/', { scroll: false }) }} type="button" className={active === 1 ? buttonActive : buttonNoActive}>
 
                         <img className="mb-2" width={active === 1 ? 28 : 23} src="/images/home.png" />
                         <span className={active === 1 ? textActive : textNoActive}>پیشخوان</span>
                     </button>
-                    <button onClick={() => setIsOpenFeatures(true)} type="button" class={active === 2 ? buttonActive : buttonNoActive}>
+                    <button onClick={() => setIsOpenFeatures(true)} type="button" className={active === 2 ? buttonActive : buttonNoActive}>
 
                         <img className="mb-2" width={active === 2 ? 28 : 23} src="/images/feature.png" />
                         <span className={active === 2 ? textActive : textNoActive}>امکانات</span>
                     </button>
-                    <button onClick={() => setIsOpenSetting(true)} type="button" class={active === 3 ? buttonActive : buttonNoActive}>
+                    <button onClick={() => setIsOpenSetting(true)} type="button" className={active === 3 ? buttonActive : buttonNoActive}>
 
                         <img className="mb-2" width={active === 3 ? 28 : 23} src="/images/setting.png" />
                         <span className={active === 3 ? textActive : textNoActive}>تنظمیات</span>
                     </button>
-                    <button onClick={() => setIsOpenReports(true)} type="button" class={active === 4 ? buttonActive : buttonNoActive}>
+                    <button onClick={() => setIsOpenReports(true)} type="button" className={active === 4 ? buttonActive : buttonNoActive}>
 
                         <img className="mb-2" width={active === 4 ? 28 : 23} src="/images/report.png" />
                         <span className={active === 4 ? textActive : textNoActive}>گزارشات</span>

@@ -1,36 +1,24 @@
 {
-    "theme_color" : "#ffffff",
-    "background_color" : "#ffffff",
-    "display": "standalone",
-    "scope" : "/",
-    "start_url" : "/",
-    "name" : "اپلیکیشن ایز اسمارت",
-    "short_name" : "ایز اسمارت",
-    "icons":[
+    "theme_color": "#8936FF",
+    "background_color": "#2EC6FE",
+    "icons": [
         {
-            "src":"/icon-192x192.png",
-            "size":"192x192",
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "icon512_maskable.png",
             "type": "image/png"
         },
         {
-            "src":"/icon-256x256.png",
-            "size":"256x256",
-            "type": "image/png"
-        },
-        {
-            "src":"/icon-384x384.png",
-            "size":"384x384",
-            "type": "image/png"
-        },
-        {
-            "src":"/icon-512x512.png",
-            "size":"512x512",
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "icon512_rounded.png",
             "type": "image/png"
         }
-    ]
-    }
-
-
-
-
-   
+    ],
+    "orientation": "any",
+    "display": "standalone",
+    "dir": "auto",
+    "lang": "fa-IR",
+    "start_url":"/",
+    "short_name" : "اپلیکیشن ایز اسمارت"
+}

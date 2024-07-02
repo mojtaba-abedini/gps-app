@@ -32,9 +32,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">شتاب دهنده سریع</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.shetabShadid} onChange={() => setIsSelected({ ...isSelected, shetabShadid: !isSelected.shetabShadid })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.shetabShadid} onChange={() => setIsSelected({ ...isSelected, shetabShadid: !isSelected.shetabShadid })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -64,9 +64,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">سطح بالا ولتاژ آنالوگ 1</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.voltageAnalogeBala} onChange={() => setIsSelected({ ...isSelected, voltageAnalogeBala: !isSelected.voltageAnalogeBala })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.voltageAnalogeBala} onChange={() => setIsSelected({ ...isSelected, voltageAnalogeBala: !isSelected.voltageAnalogeBala })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -105,9 +105,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">سطح پایین ولتاژ آنالوگ 1</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.voltageAnalogePaeen} onChange={() => setIsSelected({ ...isSelected, voltageAnalogePaeen: !isSelected.voltageAnalogePaeen })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.voltageAnalogePaeen} onChange={() => setIsSelected({ ...isSelected, voltageAnalogePaeen: !isSelected.voltageAnalogePaeen })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -146,9 +146,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">پیچیدن خطرناک</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.pichidanKhatarnak} onChange={() => setIsSelected({ ...isSelected, pichidanKhatarnak: !isSelected.pichidanKhatarnak })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.pichidanKhatarnak} onChange={() => setIsSelected({ ...isSelected, pichidanKhatarnak: !isSelected.pichidanKhatarnak })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -177,9 +177,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">سطح باطری</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.satheBattery} onChange={() => setIsSelected({ ...isSelected, satheBattery: !isSelected.satheBattery })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.satheBattery} onChange={() => setIsSelected({ ...isSelected, satheBattery: !isSelected.satheBattery })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -218,9 +218,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">بکسل</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.boxel} onChange={() => setIsSelected({ ...isSelected, boxel: !isSelected.boxel })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.boxel} onChange={() => setIsSelected({ ...isSelected, boxel: !isSelected.boxel })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -249,9 +249,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">ترمز شدید</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.tormozShadid} onChange={() => setIsSelected({ ...isSelected, tormozShadid: !isSelected.tormozShadid })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.tormozShadid} onChange={() => setIsSelected({ ...isSelected, tormozShadid: !isSelected.tormozShadid })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -279,9 +279,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">ضربه</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.zarbe} onChange={() => setIsSelected({ ...isSelected, zarbe: !isSelected.zarbe })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.zarbe} onChange={() => setIsSelected({ ...isSelected, zarbe: !isSelected.zarbe })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -310,9 +310,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">هشدار ورودی دیجیتال</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.voroodiDigital} onChange={() => setIsSelected({ ...isSelected, voroodiDigital: !isSelected.voroodiDigital })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.voroodiDigital} onChange={() => setIsSelected({ ...isSelected, voroodiDigital: !isSelected.voroodiDigital })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -341,9 +341,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">قطع بیش از حد ارتباط</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.ghateBishAzHad} onChange={() => setIsSelected({ ...isSelected, ghateBishAzHad: !isSelected.ghateBishAzHad })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.ghateBishAzHad} onChange={() => setIsSelected({ ...isSelected, ghateBishAzHad: !isSelected.ghateBishAzHad })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
@@ -371,9 +371,9 @@ const NotificationSetting = () => {
                                         <div className="text-right text-md mt-1">باز شدن درب خودرو</div></div>
                                     <div className="items-start">
 
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" value="" class="sr-only peer" checked={isSelected.bazShodanDarb} onChange={() => setIsSelected({ ...isSelected, bazShodanDarb: !isSelected.bazShodanDarb })} />
-                                            <div class="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
+                                        <label className="inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" value="" className="sr-only peer" checked={isSelected.bazShodanDarb} onChange={() => setIsSelected({ ...isSelected, bazShodanDarb: !isSelected.bazShodanDarb })} />
+                                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer  dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#14b8a6]"></div>
                                         </label>
 
                                     </div>
