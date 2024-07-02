@@ -1,19 +1,24 @@
-
-  
-  // module.exports = ({
-  //   output : 'export',
-  //   trailingSlash: true
-  // });
-
-
-
-// next.config.js
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-});
+const withPWA = require('@ducanh2912/next-pwa').default;
 
 module.exports = withPWA({
-  // output : 'export',
-  // trailingSlash: true
+  pwa: {
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development',
+    register: true,
+    skipWaiting: true,
+    buildExcludes: [/middleware-manifest.json$/],
+    runtimeCaching: [
+      {
+        urlPattern: /^http:\/\/localhost:3000\/.*\.(?:png|jpg|jpeg|svg|gif)$/,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'images-cache',
+          expiration: {
+            maxEntries: 60,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+          },
+        },
+      },
+    ],
+  },
 });

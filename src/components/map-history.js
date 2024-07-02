@@ -33,6 +33,7 @@ import { useTheme } from "next-themes";
 import moment from "jalali-moment";
 import { useRouter } from "next/navigation";
 import Loading from "./loading";
+import Image from "next/image";
 
 
 function MapHistory() {
@@ -100,7 +101,7 @@ function MapHistory() {
 
     // setWidth(window.innerWidth)
     // window.addEventListener('resize', handleResize)
-    
+
 
     const storage = localStorage.getItem("info")
     if (storage === null) router.push('/login')
@@ -330,7 +331,7 @@ function MapHistory() {
             <CardBody>
               <div className="grid grid-cols-1 items-center">
                 <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/time.png" />
+                  <Image alt="image or icon" className="mb-2" width={35} src="/images/time.png" />
                 </div>
 
                 <div className="flex items-center justify-center text-sm text-center">{(pointData[index].DataDeviceTime).split(".")[0]}</div>
@@ -342,7 +343,7 @@ function MapHistory() {
             <CardBody>
               <div className="grid grid-cols-1 items-center">
                 <div className="flex items-center justify-center">
-                  <img className="mb-2" width={35} src="/images/speed.png" />
+                  <Image alt="image or icon" className="mb-2" width={35} src="/images/speed.png" />
                 </div>
 
                 <div className="flex items-center justify-center text-sm">{pointData[index].DataSpeed}</div>
@@ -362,7 +363,9 @@ function MapHistory() {
       </> : isLoding ? <Loading /> :
 
         <div role="status" className="flex pb-28  items-center justify-center h-screen">
-         <img className="pb-20" src="/images/no-data.svg" width={600}/>
+          <Image alt="image or icon" className="pb-20" src="/images/no-data.svg" height={300}
+
+            objectFit="cover" width={600} />
 
 
         </div>

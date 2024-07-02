@@ -2,6 +2,7 @@
 
 import { Button, Card, CardBody, Input, Modal, ModalBody, ModalContent } from '@nextui-org/react'
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -43,22 +44,22 @@ const BottomNavigation = ({ active }) => {
                 <div class="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
                     <button onClick={() => { router.push('/', { scroll: false }) }} type="button" class={active === 1 ? buttonActive : buttonNoActive}>
 
-                        <img className="mb-2" width={active === 1 ? 28 : 23} src="/images/home.png" />
+                        <Image alt="image or icon" height={active === 1 ? 28 : 23} className="mb-2" width={active === 1 ? 28 : 23} src="/images/home.png" />
                         <span className={active === 1 ? textActive : textNoActive}>پیشخوان</span>
                     </button>
                     <button onClick={() => setIsOpenFeatures(true)} type="button" class={active === 2 ? buttonActive : buttonNoActive}>
 
-                        <img className="mb-2" width={active === 2 ? 28 : 23} src="/images/feature.png" />
+                        <Image alt="image or icon" height={active === 2 ? 28 : 23} className="mb-2" width={active === 2 ? 28 : 23} src="/images/feature.png" />
                         <span className={active === 2 ? textActive : textNoActive}>امکانات</span>
                     </button>
                     <button onClick={() => setIsOpenSetting(true)} type="button" class={active === 3 ? buttonActive : buttonNoActive}>
 
-                        <img className="mb-2" width={active === 3 ? 28 : 23} src="/images/setting.png" />
+                        <Image alt="image or icon" height={active === 3 ? 28 : 23} className="mb-2" width={active === 3 ? 28 : 23} src="/images/setting.png" />
                         <span className={active === 3 ? textActive : textNoActive}>تنظمیات</span>
                     </button>
                     <button onClick={() => setIsOpenReports(true)} type="button" class={active === 4 ? buttonActive : buttonNoActive}>
 
-                        <img className="mb-2" width={active === 4 ? 28 : 23} src="/images/report.png" />
+                        <Image alt="image or icon" height={active === 4 ? 28 : 23} className="mb-2" width={active === 4 ? 28 : 23} src="/images/report.png" />
                         <span className={active === 4 ? textActive : textNoActive}>گزارشات</span>
                     </button>
                 </div>
@@ -67,7 +68,7 @@ const BottomNavigation = ({ active }) => {
 
 
 
-            <Modal backdrop ='blur' motionProps={{
+            <Modal motionProps={{
                 variants: {
                     enter: {
                         y: 0,
@@ -140,7 +141,7 @@ const BottomNavigation = ({ active }) => {
             </Modal>
 
 
-            <Modal backdrop ='blur' motionProps={{
+            <Modal motionProps={{
                 variants: {
                     enter: {
                         y: 0,
@@ -201,7 +202,7 @@ const BottomNavigation = ({ active }) => {
                 </ModalContent>
             </Modal>
 
-            <Modal backdrop ='blur' motionProps={{
+            <Modal motionProps={{
                 variants: {
                     enter: {
                         y: 0,

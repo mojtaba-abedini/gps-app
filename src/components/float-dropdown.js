@@ -11,6 +11,7 @@ import {
     ModalHeader,
 } from "@nextui-org/react";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -98,25 +99,25 @@ const FloatDropdown = () => {
                     </DropdownItem>
                     <DropdownItem key="home" onClick={() => router.push("/")}>
                         <div className="flex gap-2">
-                            <img className="mb-2" width={20} src="/images/home.png" />
+                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/home.png" />
 
                             <div>پیشخوان</div></div>
                     </DropdownItem>
                     <DropdownItem key="change-device" onClick={() => setIsOpenDevice(!isOpenDevice)}>
                         <div className="flex gap-2">
-                            <img className="mb-2" width={20} src="/images/car.png" />
+                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/car.png" />
 
                             <div>تغییر دستگاه</div></div>
                     </DropdownItem>
                     <DropdownItem key="change-password" onClick={() => router.push("/change-password")}>
                         <div className="flex gap-2">
-                            <img className="mb-2" width={20} src="/images/password.png" />
+                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/password.png" />
 
                             <div>تغییر رمز عبور</div></div>
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onClick={() => setIsOpen(true)}>
                         <div className="flex gap-2">
-                            <img className="mb-2" width={20} src="/images/exit.png" />
+                            <Image alt="image or icon" height={20} className="mb-2" width={20} src="/images/exit.png" />
 
                             <div>خروج از حساب کاربری</div></div>
                     </DropdownItem>
@@ -144,7 +145,7 @@ const FloatDropdown = () => {
                         },
                     },
                 }
-            }} backdrop ='blur'  className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
+            }}  className="p-5" isOpen={isOpen} hideCloseButton={true} placement="bottom-center">
                 <ModalContent  className="max-sm:pb-10">
                     <>
                         <ModalBody>
@@ -189,7 +190,7 @@ const FloatDropdown = () => {
                         },
                     },
                 }
-            }} backdrop ='blur' className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
+            }} className="p-1" isOpen={isOpenDevice} hideCloseButton={true} placement="bottom-center">
 
 
 

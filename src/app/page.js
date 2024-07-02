@@ -13,6 +13,10 @@ export default function Home() {
   const router = useRouter()
   
   useEffect(() => {
+
+
+
+
     const info = localStorage.getItem("info")
     if (localStorage.getItem("notification") === null) localStorage.setItem("notification", false)
     if (info === null) router.push("/login")
@@ -25,3 +29,5 @@ export default function Home() {
     </div>
   );
 }
+
+
