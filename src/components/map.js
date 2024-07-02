@@ -158,7 +158,7 @@ const MyMap = () => {
   
 
       <Marker longitude={position[0]} latitude={position[1]}>
-        {/* <img width={25} src="/images/marker-icon.png" /> */}
+        {/* <Image alt="image or icon" width={25} src="/images/marker-icon.png" /> */}
       </Marker>
     </Map>
 
