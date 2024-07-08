@@ -56,6 +56,10 @@ const LoginPage = () => {
     }
   };
 
+
+
+  
+
   const Login = () => {
     var data = JSON.stringify({
       UserName: values.username,
@@ -79,6 +83,35 @@ const LoginPage = () => {
       })
       .catch(function (error) { });
   };
+
+
+
+  const demoLogin = () => {
+    var data = JSON.stringify({
+      UserName: "demo",
+      Password: "demo",
+    });
+    var config = {
+      method: "post",
+      url: "/login",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        const data = JSON.stringify({ token: response.data.token });
+        localStorage.setItem("info", data);
+        router.push("/", { scroll: false });
+        setIsLoading(false);
+      })
+      .catch(function (error) { });
+  };
+
+
+
 
   return (
     <>
@@ -148,6 +181,14 @@ const LoginPage = () => {
                   <div className="grid grid-cols-2 w-full">
                    <div className="flex gap-0">
                    <div className="flex justify-start w-full">
+                   <Button
+                     
+                     onClick={() => router.push("/verification", { scroll: false })}
+                     className="text-[#14b8a6]"
+                     variant="light"
+                   >
+                     ثبت نام
+                   </Button>
                       <Button
                      
                         onClick={() => router.push("/forgot-verification", { scroll: false })}
@@ -156,6 +197,7 @@ const LoginPage = () => {
                       >
                         فراموشی رمز
                       </Button>
+           
                     </div>
                     {/* <div className="flex justify-start w-full">
                       <Button
@@ -168,7 +210,15 @@ const LoginPage = () => {
                       </Button>
                     </div> */}
                    </div>
-                    <div className="flex justify-end w-full">
+                    <div className="flex justify-end w-full gap-2">
+                    <Button
+                      className="bg-[#14b8a6] dark:bg-[#1e293b] text-white"
+                        isLoading={isLoading}
+                        onClick={demoLogin}
+                     
+                      >
+                        نسخه دمو
+                      </Button>
                       <Button
                       className="bg-[#14b8a6] dark:bg-[#1e293b] text-white"
                         isLoading={isLoading}
@@ -177,6 +227,7 @@ const LoginPage = () => {
                       >
                         ورود به برنامه
                       </Button>
+              
 
                     </div>
 
